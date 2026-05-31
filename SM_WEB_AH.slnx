@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="SM_API_AH/SM_API_AH.csproj" />
+  <Project Path="SM_WEB_AH/SM_WEB_AH.csproj" />
+</Solution>
