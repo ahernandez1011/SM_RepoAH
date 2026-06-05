@@ -32,5 +32,9 @@ namespace SM_WEB_AH.Controllers
             return View();
         }
 
+        public IActionResult Principal()
+        {
+            return View();
+        }
     }
 }
