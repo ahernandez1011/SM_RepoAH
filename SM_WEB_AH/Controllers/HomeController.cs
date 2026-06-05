@@ -10,9 +10,15 @@ namespace SM_WEB_AH.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Registro()
         {
             return View();
         }
+
+        public IActionResult RecuperarAcceso()
+        {
+            return View();
+        }
+
     }
 }
