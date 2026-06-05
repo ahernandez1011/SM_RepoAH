@@ -1,34 +1,39 @@
-﻿
+﻿@model UsuarioModel
+
+@{
+    Layout = "_LayoutExterno";
+}
+
        <div class="row h-100">
             <div class="col-lg-6 col-12">
                 <div id="auth-left">
                     <div class="auth-logo">
-                <a href="index.html"><img src="~/images/logo-fidelitas.png" alt="Logo"></a>
+                <a asp-action="Index" asp-controller="Home"><img src="~/images/logo-fidelitas.png" alt="Logo"></a>
                     </div>
                     <h1 class="auth-title">Registrar Usuario</h1>
 
-                    <form action="index.html">
+                    <form asp-action="Registro" asp-controller="Home" method="post">
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Identificación">
+                            <input asp-for="Identificacion" type="text" class="form-control form-control-xl" placeholder="Identificación">
                             <div class="form-control-icon">
                                 <i class="bi bi-person-badge"></i>
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Nombre">
+                            <input asp-for="Nombre" type="text" class="form-control form-control-xl" placeholder="Nombre">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
 
                          <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Correo Electrónico">
+                            <input asp-for="CorreoElectronico" type="text" class="form-control form-control-xl" placeholder="Correo Electrónico">
                             <div class="form-control-icon">
                                 <i class="bi bi-envelope"></i>
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-xl" placeholder="Contraseña">
+                            <input asp-for="Contrasenna" type="password" class="form-control form-control-xl" placeholder="Contraseña">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
@@ -38,8 +43,7 @@
                     </form>
                     <div class="text-center mt-5 text-lg fs-4">
                         <p class='text-gray-600'>
-                           ¿Ya tiene una cuenta? <a href="auth-login.html"
-                                                    class="font-bold">
+                           ¿Ya tiene una cuenta? <a asp-action="Index" asp-controller="Home" class="font-bold">
                             Iniciar Sesión
                         </a>
                     </p>
