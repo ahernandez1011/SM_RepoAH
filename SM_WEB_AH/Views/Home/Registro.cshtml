@@ -1,13 +1,27 @@
-﻿<div class="row h-100">
+﻿
+       <div class="row h-100">
             <div class="col-lg-6 col-12">
                 <div id="auth-left">
                     <div class="auth-logo">
-                    <a href="index.html"><img src="~/images/logo-fidelitas.png" alt="Logo"></a>
+                <a href="index.html"><img src="~/images/logo-fidelitas.png" alt="Logo"></a>
                     </div>
-                    <h1 class="auth-title">Iniciar Sesión</h1>
+                    <h1 class="auth-title">Registrar Usuario</h1>
 
                     <form action="index.html">
                         <div class="form-group position-relative has-icon-left mb-4">
+                            <input type="text" class="form-control form-control-xl" placeholder="Identificación">
+                            <div class="form-control-icon">
+                                <i class="bi bi-person-badge"></i>
+                            </div>
+                        </div>
+                        <div class="form-group position-relative has-icon-left mb-4">
+                            <input type="text" class="form-control form-control-xl" placeholder="Nombre">
+                            <div class="form-control-icon">
+                                <i class="bi bi-person"></i>
+                            </div>
+                        </div>
+
+                         <div class="form-group position-relative has-icon-left mb-4">
                             <input type="text" class="form-control form-control-xl" placeholder="Correo Electrónico">
                             <div class="form-control-icon">
                                 <i class="bi bi-envelope"></i>
@@ -19,17 +33,16 @@
                                 <i class="bi bi-shield-lock"></i>
                             </div>
                         </div>
-                     
+
                         <button class="btn btn-primary btn-block btn-lg shadow-lg mt-1">Procesar</button>
                     </form>
                     <div class="text-center mt-5 text-lg fs-4">
-                        <p class="text-gray-600">
-                            ¿Notiene una cuenta? <a href="auth-register.html"
-                                                  class="font-bold">
-                            Registrar Usuario
+                        <p class='text-gray-600'>
+                           ¿Ya tiene una cuenta? <a href="auth-login.html"
+                                                    class="font-bold">
+                            Iniciar Sesión
                         </a>
                     </p>
-                    <p><a class="font-bold" href="auth-forgot-password.html">¿Ovidó su contraseña?</a></p>
                 </div>
             </div>
         </div>
