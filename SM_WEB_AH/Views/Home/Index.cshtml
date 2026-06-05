@@ -2,7 +2,7 @@
             <div class="col-lg-6 col-12">
                 <div id="auth-left">
                     <div class="auth-logo">
-                    <a href="index.html"><img src="~/images/logo-fidelitas.png" alt="Logo"></a>
+                    <a asp-action="Index" asp-controller="Home"><img src="~/images/logo-fidelitas.png" alt="Logo"></a>
                     </div>
                     <h1 class="auth-title">Iniciar Sesión</h1>
 
@@ -24,12 +24,16 @@
                     </form>
                     <div class="text-center mt-5 text-lg fs-4">
                         <p class="text-gray-600">
-                            ¿Notiene una cuenta? <a href="auth-register.html"
-                                                  class="font-bold">
+                            ¿Notiene una cuenta? 
+                            <a asp-action="Registro" asp-controller="Home" class="font-bold">
                             Registrar Usuario
                         </a>
                     </p>
-                    <p><a class="font-bold" href="auth-forgot-password.html">¿Ovidó su contraseña?</a></p>
+                    <p>
+                        <a class="font-bold" asp-action="RecuperarAcceso" asp-controller="Home">
+                            ¿Ovidó su contraseña?
+                            </a>
+                        </p>
                 </div>
             </div>
         </div>

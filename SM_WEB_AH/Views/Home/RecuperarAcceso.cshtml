@@ -2,7 +2,7 @@
         <div class="col-lg-6 col-12">
             <div id="auth-left">
                 <div class="auth-logo">
-                <a href="index.html"><img src="~/images/logo-fidelitas.png" alt="Logo"></a>
+                <a asp-action="Index" asp-controller="Home"><img src="~/images/logo-fidelitas.png" alt="Logo"></a>
                 </div>
                 <h1 class="auth-title">Recuperar Acceso</h1>
                 <form action="index.html">
@@ -16,7 +16,7 @@
                 </form>
                 <div class="text-center mt-5 text-lg fs-4">
                     <p class='text-gray-600'>
-                        ¿Recuerda su contraseña? <a href="auth-login.html" class="font-bold">
+                        ¿Recuerda su contraseña? <a asp-action="Index" asp-controller="Home" class="font-bold">
                         Iniciar Sesión
                     </a>
                 </p>

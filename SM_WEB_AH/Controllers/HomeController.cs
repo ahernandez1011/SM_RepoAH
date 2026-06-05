@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SM_WEB_AH.Models;
 using System.Diagnostics;
 
 namespace SM_WEB_AH.Controllers
@@ -10,10 +11,21 @@ namespace SM_WEB_AH.Controllers
             return View();
         }
 
+        #region Registrar Usuarios
+
+        [HttpGet]
         public IActionResult Registro()
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Registro(UsuarioModel model)
+        {
+            return View();
+        }
+
+        #endregion
 
         public IActionResult RecuperarAcceso()
         {
