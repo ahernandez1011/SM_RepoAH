@@ -17,7 +17,7 @@ body {
     }
 
         #auth #auth-left .auth-title {
-            font-size: 4rem;
+            font-size: 2rem;
             margin-bottom: 1rem
         }
 
@@ -28,11 +28,11 @@ body {
         }
 
         #auth #auth-left .auth-logo {
-            margin-bottom: 7rem
+            margin-bottom: 2rem
         }
 
             #auth #auth-left .auth-logo img {
-                height: 2rem
+                height: 7rem
             }
 
 @media screen and (max-width:767px) {
