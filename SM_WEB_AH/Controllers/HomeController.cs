@@ -4,7 +4,9 @@ using System.Diagnostics;
 
 namespace SM_WEB_AH.Controllers
 {
-    public class HomeController (IHttpClientFactory _http) : Controller
+    public class HomeController (
+        IHttpClientFactory _http,
+        IConfiguration _config) : Controller
     {
         public IActionResult Index()
         {
@@ -22,10 +24,10 @@ namespace SM_WEB_AH.Controllers
         [HttpPost]
         public IActionResult Registro(UsuarioModel model)
         {
-            using var cliente = _http.CreateClient();
+            using var client = _http.CreateClient();
             
-            var urlApi = "https://localhost:7201/api/Home/RegistroAPI";
-            var response = cliente.PostAsJsonAsync(urlApi, model).Result;
+            var urlApi = _config["Valores:UrlApi"] + "Home/RegistroAPI";
+            var response = client.PostAsJsonAsync(urlApi, model).Result;
 
             return View();
         }

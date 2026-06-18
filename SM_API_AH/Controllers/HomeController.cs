@@ -8,14 +8,13 @@ namespace SM_API_AH.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HomeController : ControllerBase
+    public class HomeController(IConfiguration _config) : ControllerBase
     {
         
         [HttpPost("RegistroAPI")]
         public IActionResult RegistroAPI(UsuarioModel model)
         {
-                using var context = new SqlConnection("Server=CRRECEPT-1660\\SQLEXPRESS; Database= SM_DB; Integrated Security=True;" +
-                    "TrustServerCertificate=True;");
+                using var context = new SqlConnection(_config["ConnectionStrings:DefaultConnection"]);
 
                 var parameters = new DynamicParameters();
                 parameters.Add("@Identificacion", model.Identificacion);
