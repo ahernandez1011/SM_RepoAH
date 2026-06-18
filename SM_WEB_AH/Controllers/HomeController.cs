@@ -22,14 +22,12 @@ namespace SM_WEB_AH.Controllers
         [HttpPost]
         public IActionResult Registro(UsuarioModel model)
         {
-            using (var cliente= _http.CreateClient())
-            {
-                var urlApi = "https://localhost:7201/api/Home/RegistroAPI";
-                var response = cliente.PostAsJsonAsync(urlApi, model).Result;
+            using var cliente = _http.CreateClient();
+            
+            var urlApi = "https://localhost:7201/api/Home/RegistroAPI";
+            var response = cliente.PostAsJsonAsync(urlApi, model).Result;
 
-            }
-
-                 return View();
+            return View();
         }
 
         #endregion
