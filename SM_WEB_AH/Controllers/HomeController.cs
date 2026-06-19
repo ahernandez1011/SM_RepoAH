@@ -27,7 +27,6 @@ namespace SM_WEB_AH.Controllers
             
             var urlApi = _config["Valores:UrlApi"] + "Home/RegistroAPI";
             var response = client.PostAsJsonAsync(urlApi, model).Result;
-
             return View();
         }
 
