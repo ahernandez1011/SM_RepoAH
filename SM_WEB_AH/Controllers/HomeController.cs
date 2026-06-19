@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using SM_WEB_AH.Models;
-using System.Diagnostics;
 
 namespace SM_WEB_AH.Controllers
 {

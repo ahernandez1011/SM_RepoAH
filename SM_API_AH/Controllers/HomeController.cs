@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using SM_API_AH.Models;
@@ -10,7 +9,6 @@ namespace SM_API_AH.Controllers
     [ApiController]
     public class HomeController(IConfiguration _config) : ControllerBase
     {
-        
         [HttpPost("RegistroAPI")]
         public IActionResult RegistroAPI(UsuarioModel model)
         {
@@ -24,6 +22,6 @@ namespace SM_API_AH.Controllers
 
                 var response = context.Query("spRegistrarUsuario", parameters);
                 return Ok();
-        }
-    }
+        }    
+    }  
 }
