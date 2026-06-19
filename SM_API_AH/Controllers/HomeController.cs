@@ -34,7 +34,7 @@ namespace SM_API_AH.Controllers
             parameters.Add("@CorreoElectronico", model.CorreoElectronico);
             parameters.Add("@Contrasenna", model.Contrasenna);
 
-            var response = context.QueryFirstOrDefault<DatosUsuarioResponseModel>("spIniciarSesionUsurio", parameters);
+            var response = context.QueryFirstOrDefault<DatosUsuarioResponseModel>("spIniciarSesionUsuario", parameters);
 
             if(response != null)
                 return Ok(response);
