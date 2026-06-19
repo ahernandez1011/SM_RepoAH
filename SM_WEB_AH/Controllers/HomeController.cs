@@ -7,10 +7,22 @@ namespace SM_WEB_AH.Controllers
         IHttpClientFactory _http,
         IConfiguration _config) : Controller
     {
+
+        #region Iniciar Sesión
+
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Index(UsuarioModel model)
+        {
+            return View();
+        }
+
+        #endregion
 
         #region Registrar Usuarios
 

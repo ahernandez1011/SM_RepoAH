@@ -20,7 +20,7 @@ namespace SM_API_AH.Controllers
                 parameters.Add("@CorreoElectronico", model.CorreoElectronico);
                 parameters.Add("@Contrasenna", model.Contrasenna);
 
-                var response = context.Query("spRegistrarUsuario", parameters);
+                context.Execute("spRegistrarUsuario", parameters);
                 return Ok();
         }    
     }  
