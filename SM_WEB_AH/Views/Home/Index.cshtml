@@ -4,7 +4,6 @@
     Layout = "_LayoutExterno";
 }
 
-
 <div class="row h-100">
             <div class="col-lg-6 col-12">
                 <div id="auth-left">
@@ -17,26 +16,24 @@
                        < div class= "alert alert-danger text-center" > @ViewBag.Mensaje </ div >
                     }
 
-
                     <h1 class="auth-title">Iniciar Sesión</h1>
-
-                    
-            <form asp-action="Index" asp-controller="Home" method="post">
-                <div class="form-group position-relative has-icon-left mb-4">
+        
+            <form id ="IndexForm" asp-action="Index" asp-controller="Home" method="post">
+                <div class="form-group position-relative has-icon-left">
                     <input asp-for="CorreoElectronico" type="text" class="form-control form-control-xl" placeholder="Correo Electrónico">
                             <div class="form-control-icon">
                                 <i class="bi bi-envelope"></i>
                             </div>
                         </div>
 
-                        <div class="form-group position-relative has-icon-left mb-4">
+                 <div class="form-group position-relative has-icon-left">
                     <input asp-for="Contrasenna" type="password" class="form-control form-control-xl" placeholder="Contraseña">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
                         </div>
                      
-                <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-1">Procesar</button>
+                <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-3">Procesar</button>
                     </form>
 
                     <div class="text-center mt-5 text-lg fs-4">
@@ -59,3 +56,5 @@
             </div>
         </div>
     </div>
+
+<script src="~/js/index.js"></script>
