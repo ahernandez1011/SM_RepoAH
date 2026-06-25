@@ -1541,3 +1541,101 @@ a {
 .icon-mid:before {
     vertical-align: middle
 }
+
+/* ==============================
+   User Dropdown Menu
+============================== */
+
+#main header {
+    padding: .75rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 9
+}
+
+.user-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    padding: .45rem 1rem;
+    border-radius: 2rem;
+    background-color: #f5f7ff;
+    font-size: .9rem;
+    font-weight: 700;
+    color: #25396f !important;
+    text-decoration: none !important;
+    transition: background-color .25s ease, box-shadow .25s ease
+}
+
+    .user-dropdown-toggle:hover,
+    .user-dropdown-toggle.show {
+        background-color: #e6ebff;
+        box-shadow: 0 2px 8px rgba(67, 94, 190, .15)
+    }
+
+    .user-dropdown-toggle i {
+        font-size: 1.4rem;
+        color: #435ebe
+    }
+
+    .user-dropdown-toggle::after {
+        color: #7c8db5
+    }
+
+.user-dropdown-menu {
+    min-width: 210px;
+    border: none;
+    border-radius: .75rem;
+    box-shadow: 0 8px 28px rgba(67, 94, 190, .18);
+    padding: .4rem;
+    margin-top: .5rem !important
+}
+
+    .user-dropdown-menu .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: .55rem;
+        padding: .6rem 1rem;
+        font-size: .88rem;
+        font-weight: 600;
+        color: #25396f;
+        border-radius: .5rem;
+        transition: background-color .2s ease, color .2s ease
+    }
+
+        .user-dropdown-menu .dropdown-item:hover {
+            background-color: #f0f3ff;
+            color: #435ebe
+        }
+
+        .user-dropdown-menu .dropdown-item i {
+            font-size: 1rem;
+            color: #7c8db5;
+            transition: color .2s ease
+        }
+
+        .user-dropdown-menu .dropdown-item:hover i {
+            color: #435ebe
+        }
+
+    .user-dropdown-menu .dropdown-divider {
+        border-color: #eef0f5;
+        margin: .3rem 0
+    }
+
+    .user-dropdown-menu .item-salir {
+        color: #e74c3c
+    }
+
+        .user-dropdown-menu .item-salir i {
+            color: #e74c3c
+        }
+
+        .user-dropdown-menu .item-salir:hover {
+            background-color: #fff5f5;
+            color: #c0392b
+        }
+
+            .user-dropdown-menu .item-salir:hover i {
+                color: #c0392b
+            }
