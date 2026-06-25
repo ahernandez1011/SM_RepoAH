@@ -10,6 +10,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+//Middleware de Errores
 app.UseExceptionHandler("/api/Error/RegistrarError");
 
 app.UseHttpsRedirection();

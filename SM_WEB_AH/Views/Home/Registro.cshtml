@@ -1,5 +1,4 @@
 ﻿@model UsuarioModel
-
 @{
     Layout = "_LayoutExterno";
 }
@@ -13,12 +12,15 @@
 
                    @if (ViewBag.Mensaje != null)
                     {
-                        <div class="alert alert-danger text-center">@ViewBag.Mensaje</div>
+                        <div class="alert alert-danger text-center">
+                            @ViewBag.Mensaje
+                            </div>
                     }
 
                     <h1 class="auth-title">Registrar Usuario</h1>
 
                    <form id="RegistroForm" asp-action="Registro" asp-controller="Home" method="post">
+
                         <div class="form-group position-relative has-icon-left">
                             <input asp-for="Identificacion" type="text" class="form-control form-control-xl" placeholder="Identificación">
                             <div class="form-control-icon">

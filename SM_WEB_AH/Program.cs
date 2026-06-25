@@ -8,6 +8,7 @@ builder.Services.AddSession();
 
 var app = builder.Build();
 
+//Middleware de Errores
 app.UseExceptionHandler("/Error/CapturarError");
 
 app.UseSession();
@@ -26,6 +27,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
-
 
 app.Run();
