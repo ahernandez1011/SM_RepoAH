@@ -4,9 +4,13 @@ builder.Services.AddControllersWithViews();
 
 //Dependencias
 builder.Services.AddHttpClient();
+builder.Services.AddSession();
+
 var app = builder.Build();
 
 app.UseExceptionHandler("/Error/CapturarError");
+
+app.UseSession();
 
 app.UseHsts();
 

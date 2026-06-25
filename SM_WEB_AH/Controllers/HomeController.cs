@@ -27,6 +27,8 @@ namespace SM_WEB_AH.Controllers
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
+                HttpContext.Session.SetString("Autenticado", "1");
+
                 return RedirectToAction("Principal", "Home");
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
@@ -79,6 +81,12 @@ namespace SM_WEB_AH.Controllers
         public IActionResult Principal()
         {
             return View();
+        }
+
+        public IActionResult Salir()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
