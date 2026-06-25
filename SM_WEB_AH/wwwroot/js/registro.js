@@ -1,4 +1,8 @@
-﻿$(document).ready(function () {
+﻿$.validator.addMethod("caracterEspecial", function (value) {
+    return /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value);
+}, "");
+
+$(document).ready(function () {
     $("#RegistroForm").validate({
         rules: {
             Identificacion: {
@@ -13,7 +17,8 @@
             },
             Contrasenna: {
                 required: true,
-                minlength: 5
+                minlength: 5,
+                caracterEspecial: true
             }
         },
         messages: {
@@ -29,7 +34,8 @@
             },
             Contrasenna: {
                 required: "Campo obligatorio.",
-                minlength: "Mínimo 5 caracteres."
+                minlength: "Mínimo 5 caracteres.",
+                caracterEspecial: "Debe contener al menos 1 carácter especial."
             }
         },
         errorElement: "span",
