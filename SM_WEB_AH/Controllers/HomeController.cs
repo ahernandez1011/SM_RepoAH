@@ -31,7 +31,7 @@ namespace SM_WEB_AH.Controllers
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                //Agregar mensaje de error a la vista
+                ViewBag.Mensaje = response.Content.ReadAsStringAsync().Result;
                 return View();
             }
 
@@ -55,7 +55,18 @@ namespace SM_WEB_AH.Controllers
             
             var urlApi = _config["Valores:UrlApi"] + "Home/RegistroAPI";
             var response = client.PostAsJsonAsync(urlApi, model).Result;
-            return View();
+            
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                ViewBag.Mensaje = response.Content.ReadAsStringAsync().Result;
+                return View();
+            }
+
+            throw new Exception("Ocurrió un error al intentar registrar el usuario.");
         }
 
         #endregion

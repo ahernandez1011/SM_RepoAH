@@ -11,6 +11,13 @@
                     <div class="auth-logo">
                     <a asp-action="Index" asp-controller="Home"><img src="~/images/logo-fidelitas.png" alt="Logo"></a>
                     </div>
+
+                    @if (ViewBag.Mensaje != null)
+                    {
+                       < div class= "alert alert-danger text-center" > @ViewBag.Mensaje </ div >
+                    }
+
+
                     <h1 class="auth-title">Iniciar Sesión</h1>
 
                     
