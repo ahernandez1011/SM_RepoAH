@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <i class="bi bi-person-check" style="font-size: 3rem; color: #667eea;"></i>
+                <h5 class="card-title mt-3">Registrar Cliente</h5>
+                <p class="card-text">Ingresa los datos de un nuevo cliente al sistema</p>
+                <a asp-controller="Clientes" asp-action="Create" class="btn btn-primary">Registrar</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <i class="bi bi-paw" style="font-size: 3rem; color: #667eea;"></i>
+                <h5 class="card-title mt-3">Registrar Mascota</h5>
+                <p class="card-text">Registra una nueva mascota de un cliente</p>
+                <a asp-controller="Mascotas" asp-action="Create" class="btn btn-primary">Registrar</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <i class="bi bi-search" style="font-size: 3rem; color: #667eea;"></i>
+                <h5 class="card-title mt-3">Consultar Mascotas</h5>
+                <p class="card-text">Ve todas las mascotas registradas en el sistema</p>
+                <a asp-controller="Mascotas" asp-action="Consulta" class="btn btn-primary">Consultar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="alert alert-info">
+            <h5>Instrucciones:</h5>
+            <ul class="mb-0">
+                <li><strong>Registrar Cliente:</strong> Ingresa cédula, nombre y correo del cliente. La cédula no puede repetirse.</li>
+                <li><strong>Registrar Mascota:</strong> Ingresa los datos de la mascota. No se pueden registrar más de 2 mascotas de la misma especie por cliente.</li>
+                <li><strong>Consultar Mascotas:</strong> Visualiza todas las mascotas registradas con información del cliente propietario.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+

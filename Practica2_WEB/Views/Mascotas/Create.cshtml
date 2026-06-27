@@ -1,0 +1,114 @@
+@model Practica2_WEB.Models.Mascota
+
+@{
+    ViewData["Title"] = "Registrar Mascota";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Registrar Nueva Mascota</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post" novalidate>
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Error en el formulario:</strong>
+                            <ul>
+                                @foreach (var modelState in ViewData.ModelState.Values)
+                                {
+                                    @foreach (var error in modelState.Errors)
+                                    {
+                                        <li>@error.ErrorMessage</li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    <div class="mb-3">
+                        <label asp-for="Nombre" class="form-label">Nombre <span class="text-danger">*</span></label>
+                        <input asp-for="Nombre" class="form-control" placeholder="Ingrese el nombre de la mascota" required />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Especie" class="form-label">Especie <span class="text-danger">*</span></label>
+                        <input asp-for="Especie" class="form-control" placeholder="Ej: Perro, Gato, Ave" required />
+                        <span asp-validation-for="Especie" class="text-danger"></span>
+                        <small class="form-text text-muted">Máximo 2 mascotas de la misma especie por cliente</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Raza" class="form-label">Raza <span class="text-danger">*</span></label>
+                        <input asp-for="Raza" class="form-control" placeholder="Ingrese la raza de la mascota" required />
+                        <span asp-validation-for="Raza" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Peso" class="form-label">Peso (kg) <span class="text-danger">*</span></label>
+                        <input asp-for="Peso" type="number" step="0.01" class="form-control" placeholder="Ingrese el peso en kilogramos" required />
+                        <span asp-validation-for="Peso" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="IdCliente" class="form-label">Cliente <span class="text-danger">*</span></label>
+                        <select asp-for="IdCliente" class="form-control" required>
+                            <option value="">-- Seleccione un cliente --</option>
+                            @if (ViewBag.Clientes != null)
+                            {
+                                @foreach (var cliente in ViewBag.Clientes)
+                                {
+                                    <option value="@cliente.IdCliente">@cliente.Nombre (@cliente.Cedula)</option>
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="IdCliente" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="bi bi-check-circle"></i> Registrar
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <a asp-action="Consulta" class="btn btn-secondary w-100">
+                                <i class="bi bi-arrow-left"></i> Cancelar
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('form').submit(function (e) {
+                let nombre = $('#Nombre').val().trim();
+                let especie = $('#Especie').val().trim();
+                let raza = $('#Raza').val().trim();
+                let peso = parseFloat($('#Peso').val());
+                let idCliente = $('#IdCliente').val();
+
+                if (!nombre || !especie || !raza || !peso || !idCliente) {
+                    e.preventDefault();
+                    alert('Por favor, complete todos los campos requeridos');
+                    return false;
+                }
+
+                if (peso <= 0) {
+                    e.preventDefault();
+                    alert('El peso debe ser mayor a 0');
+                    return false;
+                }
+            });
+        });
+    </script>
+}

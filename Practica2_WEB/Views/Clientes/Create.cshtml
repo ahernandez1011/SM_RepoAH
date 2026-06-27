@@ -1,0 +1,150 @@
+@model Practica2_WEB.Models.Cliente
+
+@{
+    ViewData["Title"] = "Registrar Cliente";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Registrar Nuevo Cliente</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post" novalidate>
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Error en el formulario:</strong>
+                            <ul>
+                                @foreach (var modelState in ViewData.ModelState.Values)
+                                {
+                                    @foreach (var error in modelState.Errors)
+                                    {
+                                        <li>@error.ErrorMessage</li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    <div class="mb-3">
+                        <label asp-for="Cedula" class="form-label">Cédula <span class="text-danger">*</span></label>
+                        <input asp-for="Cedula" class="form-control" placeholder="Ingrese la cédula del cliente" required />
+                        <span asp-validation-for="Cedula" class="text-danger"></span>
+                        <small class="form-text text-muted">La cédula no puede repetirse</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Nombre" class="form-label">Nombre <span class="text-danger">*</span></label>
+                        <input asp-for="Nombre" class="form-control" placeholder="Ingrese el nombre del cliente" required />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Correo" class="form-label">Correo Electrónico <span class="text-danger">*</span></label>
+                        <input asp-for="Correo" type="email" class="form-control" placeholder="Ingrese el correo electrónico" required />
+                        <span asp-validation-for="Correo" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="bi bi-check-circle"></i> Registrar
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <a asp-action="Index" class="btn btn-secondary w-100">
+                                <i class="bi bi-arrow-left"></i> Cancelar
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            // Validar que los campos no estén vacíos
+            $('form').submit(function (e) {
+                let cedula = $('#Cedula').val().trim();
+                let nombre = $('#Nombre').val().trim();
+                let correo = $('#Correo').val().trim();
+
+                if (!cedula || !nombre || !correo) {
+                    e.preventDefault();
+                    alert('Por favor, complete todos los campos requeridos');
+                    return false;
+                }
+
+                // Validar formato de correo
+                let emailRegex = /^[^\s@@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger" role="alert">
+        <strong>Error en el formulario:</strong>
+        <ul>
+            @foreach (var modelState in ViewData.ModelState.Values)
+            {
+                foreach (var error in modelState.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}]+@@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger" role="alert">
+        <strong>Error en el formulario:</strong>
+        <ul>
+            @foreach (var modelState in ViewData.ModelState.Values)
+            {
+                @foreach (var error in modelState.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}[^\s@@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger" role="alert">
+        <strong>Error en el formulario:</strong>
+        <ul>
+            @foreach (var modelState in ViewData.ModelState.Values)
+            {
+                @foreach (var error in modelState.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}]+\.[^\s@@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger" role="alert">
+        <strong>Error en el formulario:</strong>
+        <ul>
+            @foreach (var modelState in ViewData.ModelState.Values)
+            {
+                @foreach (var error in modelState.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}]+$/;
+                if (!emailRegex.test(correo)) {
+                    e.preventDefault();
+                    alert('Ingrese un correo electrónico válido');
+                    return false;
+                }
+            });
+        });
+    </script>
+}
