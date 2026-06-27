@@ -1,0 +1,595 @@
+@model CasoEstudio.Web.Models.Ticket
+@{
+    ViewData["Title"] = "Registrar Ticket";
+    var tipos = ViewBag.Tipos as IEnumerable<CasoEstudio.Web.Models.TipoVehiculo>;
+}
+
+<style>
+    /* Page Header Banner */
+    .page-header-banner {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #fa709a 100%);
+        border-radius: 16px;
+        padding: 2.5rem;
+        margin-bottom: 3rem;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 12px 40px rgba(102, 126, 234, 0.3);
+        animation: headerSlideIn 0.8s ease-out;
+    }
+
+    .page-header-banner::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .page-header-banner::after {
+        content: '';
+        position: absolute;
+        bottom: -30%;
+        left: -30%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+        animation: float 8s ease-in-out infinite 1s;
+    }
+
+    .header-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .header-icon {
+        font-size: 3.5rem;
+        animation: bounceIcon 2s ease-in-out infinite;
+        filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+        flex-shrink: 0;
+    }
+
+    .header-text h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.2rem;
+        font-weight: 800;
+        margin: 0 0 0.5rem 0;
+        color: white;
+        letter-spacing: -1px;
+        line-height: 1.2;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-text p {
+        font-family: 'Inter', sans-serif;
+        font-size: 1rem;
+        margin: 0;
+        color: rgba(255, 255, 255, 0.95);
+        font-weight: 500;
+    }
+
+    /* Form Card */
+    .form-card-enhanced {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        padding: 3rem;
+        animation: cardSlideIn 0.8s ease-out 0.2s both;
+        border: 1px solid rgba(102, 126, 234, 0.1);
+    }
+
+    .form-card .row {
+        gap: 1.5rem;
+    }
+
+    /* Section Headers */
+    .form-section {
+        margin-bottom: 3rem;
+        animation: sectionFadeIn 0.6s ease-out;
+    }
+
+    .form-section:nth-child(3) {
+        animation-delay: 0.1s;
+    }
+
+    .form-section:nth-child(4) {
+        animation-delay: 0.2s;
+    }
+
+    .form-group-title {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 800;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        margin-bottom: 2rem;
+        padding-bottom: 1.2rem;
+        border-bottom: 3px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .form-group-title span {
+        font-size: 1.3rem;
+    }
+
+    /* Input Fields */
+    .form-field-wrapper {
+        position: relative;
+        animation: fieldFadeIn 0.6s ease-out;
+    }
+
+    .form-field-wrapper:nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    .input-icon {
+        color: #667eea;
+        margin-right: 0.5rem;
+        font-weight: 700;
+        font-size: 1.1rem;
+    }
+
+    .form-label {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 0.8rem;
+        font-size: 0.95rem;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .form-control, .form-select {
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 0.95rem 1.2rem;
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+        font-family: 'Inter', sans-serif;
+        background-color: #fafbfc;
+    }
+
+    .form-control::placeholder {
+        color: #9ca3af;
+        font-weight: 500;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #667eea !important;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+        background-color: white;
+        transform: translateY(-2px);
+    }
+
+    .form-control:invalid,
+    .form-select:invalid {
+        border-color: #ef4444;
+    }
+
+    .form-control:valid,
+    .form-select:valid {
+        border-color: #10b981;
+        background-image: none;
+    }
+
+    .input-group-text {
+        font-weight: 700;
+        color: white;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+        border: none;
+        font-size: 1.2rem;
+    }
+
+    .form-text {
+        font-size: 0.8rem;
+        color: #6b7280;
+        margin-top: 0.6rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .form-text i {
+        color: #667eea;
+    }
+
+    /* Success Badge */
+    .success-badge {
+        display: inline-flex;
+        align-items: center;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        padding: 0.6rem 1.2rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        animation: badgePulse 2s ease-in-out infinite;
+    }
+
+    /* Button Group */
+    .btn-group-custom {
+        display: flex;
+        gap: 1.2rem;
+        margin-top: 3rem;
+        animation: buttonsSlideIn 0.8s ease-out 0.4s both;
+    }
+
+    .btn-register-form {
+        flex: 1;
+        position: relative;
+        padding: 1.2rem !important;
+        font-size: 1rem;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #fa709a 100%);
+        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+    }
+
+    .btn-register-form::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.5s ease;
+        z-index: 1;
+    }
+
+    .btn-register-form:hover::before {
+        left: 100%;
+    }
+
+    .btn-register-form:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 36px rgba(102, 126, 234, 0.4);
+        letter-spacing: 1.5px;
+    }
+
+    .btn-register-form:active {
+        transform: translateY(-1px);
+    }
+
+    .btn-register-form i {
+        font-size: 1.2rem;
+        animation: iconPulseForm 2s ease-in-out infinite;
+    }
+
+    .btn-cancel-form {
+        flex: 1;
+        padding: 1.2rem !important;
+        font-size: 1rem;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+        color: #1f2937;
+        border: 2px solid #d1d5db;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        text-decoration: none;
+    }
+
+    .btn-cancel-form:hover {
+        background: linear-gradient(135deg, #d1d5db 0%, #bfdbfe 100%);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        color: #1f2937;
+        border-color: #bfdbfe;
+    }
+
+    .btn-cancel-form:active {
+        transform: translateY(-1px);
+    }
+
+    /* Validation */
+    .text-danger {
+        color: #ef4444 !important;
+        font-size: 0.8rem;
+        margin-top: 0.4rem;
+        display: block;
+        font-weight: 700;
+        font-family: 'Poppins', sans-serif;
+        letter-spacing: 0.3px;
+        animation: errorShake 0.3s ease-out;
+    }
+
+    /* Animations */
+    @@keyframes headerSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes cardSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes bounceIcon {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-15px);
+        }
+    }
+
+    @@keyframes float {
+        0%, 100% {
+            transform: translate(0, 0);
+        }
+        50% {
+            transform: translate(30px, 30px);
+        }
+    }
+
+    @@keyframes sectionFadeIn {
+        from {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @@keyframes fieldFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes badgePulse {
+        0%, 100% {
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        50% {
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.5);
+        }
+    }
+
+    @@keyframes iconPulseForm {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.2);
+        }
+    }
+
+    @@keyframes buttonsSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes errorShake {
+        0%, 100% {
+            transform: translateX(0);
+        }
+        25% {
+            transform: translateX(-5px);
+        }
+        75% {
+            transform: translateX(5px);
+        }
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .page-header-banner {
+            padding: 2rem 1.5rem;
+        }
+
+        .header-content {
+            gap: 1rem;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .header-icon {
+            font-size: 3rem;
+        }
+
+        .header-text h2 {
+            font-size: 1.8rem;
+        }
+
+        .form-card-enhanced {
+            padding: 1.8rem;
+        }
+
+        .btn-group-custom {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .btn-register-form,
+        .btn-cancel-form {
+            width: 100%;
+        }
+    }
+</style>
+
+<!-- Page Header Banner -->
+<div class="page-header-banner">
+    <div class="header-content">
+        <div class="header-icon">🚗</div>
+        <div class="header-text">
+            <h2>Nuevo Registro de Entrada</h2>
+            <p>Ingrese los datos del vehículo para registrar su entrada al parqueo</p>
+        </div>
+    </div>
+</div>
+
+<div class="form-card form-card-enhanced">
+    <form action="/Tickets/Create" method="post">
+        @Html.AntiForgeryToken()
+
+        <!-- Mostrar TODOS los errores de validación -->
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger" role="alert" style="margin-bottom: 2rem;">
+                <h4 class="alert-heading"><i class="bi bi-exclamation-triangle"></i> Error de Validación</h4>
+                <hr>
+                <ul style="margin-bottom: 0;">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <li>@error.ErrorMessage</li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <!-- Información del Vehículo -->
+        <div class="form-section">
+            <div class="form-group-title">
+                <span>📋</span>
+                Información del Vehículo
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="form-field-wrapper">
+                        <label for="PlacaVehiculo" class="form-label">
+                            <i class="bi bi-car-front input-icon"></i>
+                            Placa del Vehículo
+                        </label>
+                        <input type="text" id="PlacaVehiculo" name="PlacaVehiculo" class="form-control" placeholder="ABC123" value="@Model?.PlacaVehiculo" />
+                        <span asp-validation-for="PlacaVehiculo" class="text-danger"></span>
+                        <small class="form-text"><i class="bi bi-lightbulb"></i> Ej: ABC123 (sin guiones)</small>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="form-field-wrapper">
+                        <label for="TipoVehiculo" class="form-label">
+                            <i class="bi bi-speedometer2 input-icon"></i>
+                            Tipo de Vehículo
+                        </label>
+                        <select id="TipoVehiculo" name="TipoVehiculo" class="form-select">
+                            <option value="0">-- Seleccione un tipo --</option>
+                            @if (tipos != null)
+                            {
+                                @foreach (var tipo in tipos)
+                                {
+                                    <option value="@tipo.TipoVehiculoId" @(Model?.TipoVehiculo == tipo.TipoVehiculoId ? "selected" : "")>@tipo.DescripcionTipo</option>
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="TipoVehiculo" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Información de Tarifa -->
+        <div class="form-section">
+            <div class="form-group-title">
+                <span>💰</span>
+                Información de Tarifa
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <div class="form-field-wrapper">
+                        <label for="MontoTotal" class="form-label">
+                            <i class="bi bi-cash-coin input-icon"></i>
+                            Monto Total
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text">₡</span>
+                            <input type="number" id="MontoTotal" name="MontoTotal" class="form-control" placeholder="0.00" step="0.01" min="0.01" value="@Model?.MontoTotal" />
+                        </div>
+                        <span asp-validation-for="MontoTotal" class="text-danger"></span>
+                        <small class="form-text"><i class="bi bi-lightbulb"></i> Ingrese en colones (CRC)</small>
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" id="FechaIngreso" name="FechaIngreso" value="@DateTime.Now.ToString("o")" />
+            </div>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="btn-group-custom">
+            <button type="submit" class="btn-register-form">
+                <i class="bi bi-check-circle"></i>
+                <span>Registrar Ticket</span>
+            </button>
+            <a class="btn-cancel-form" href="/Tickets">
+                <i class="bi bi-x-circle"></i>
+                <span>Cancelar</span>
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        // Convertir placa a mayúsculas mientras escribe
+        document.getElementById('PlacaVehiculo')?.addEventListener('input', function() {
+            this.value = this.value.toUpperCase();
+        });
+    </script>
+}

@@ -1,0 +1,587 @@
+@model IEnumerable<CasoEstudio.Web.Models.Ticket>
+@{
+    ViewData["Title"] = "Listado de Tickets";
+    var ticketList = Model?.ToList() ?? new List<CasoEstudio.Web.Models.Ticket>();
+    var totalIngresos = ticketList.Sum(t => t.MontoTotal);
+}
+
+<style>
+    /* Welcome Banner */
+    .welcome-banner {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        border-radius: 16px;
+        padding: 3rem 2rem;
+        margin-bottom: 3rem;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 12px 40px rgba(102, 126, 234, 0.3);
+        animation: welcomeSlideIn 0.8s ease-out;
+    }
+
+    .welcome-banner::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .welcome-banner::after {
+        content: '';
+        position: absolute;
+        bottom: -30%;
+        left: -30%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+        animation: float 8s ease-in-out infinite 1s;
+    }
+
+    .welcome-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+        flex-wrap: wrap;
+    }
+
+    .welcome-icon {
+        font-size: 5rem;
+        animation: bounceIcon 2s ease-in-out infinite;
+        filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+        flex-shrink: 0;
+    }
+
+    .welcome-text {
+        flex: 1;
+        min-width: 250px;
+    }
+
+    .welcome-text h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin: 0 0 0.5rem 0;
+        color: white;
+        letter-spacing: -1px;
+        line-height: 1.2;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .welcome-text p {
+        font-family: 'Inter', sans-serif;
+        font-size: 1.05rem;
+        margin: 0;
+        color: rgba(255, 255, 255, 0.95);
+        font-weight: 500;
+        line-height: 1.6;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .welcome-stats {
+        display: flex;
+        gap: 2rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .welcome-stat {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(10px);
+        animation: statFadeIn 0.8s ease-out;
+    }
+
+    .welcome-stat:nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    .welcome-stat:nth-child(3) {
+        animation-delay: 0.2s;
+    }
+
+    .welcome-stat-label {
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 0.3rem;
+    }
+
+    .welcome-stat-value {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: white;
+    }
+
+    /* Animaciones */
+    @@keyframes welcomeSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes bounceIcon {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-15px);
+        }
+    }
+
+    @@keyframes float {
+        0%, 100% {
+            transform: translate(0, 0);
+        }
+        50% {
+            transform: translate(30px, 30px);
+        }
+    }
+
+    @@keyframes statFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .welcome-banner {
+            padding: 2rem 1.5rem;
+        }
+
+        .welcome-content {
+            gap: 1.5rem;
+        }
+
+        .welcome-icon {
+            font-size: 4rem;
+            flex-basis: 100%;
+            text-align: center;
+        }
+
+        .welcome-text h2 {
+            font-size: 1.8rem;
+        }
+
+        .welcome-text p {
+            font-size: 0.95rem;
+        }
+
+        .welcome-stats {
+            gap: 1rem;
+            justify-content: space-around;
+        }
+
+        .welcome-stat {
+            flex: 1;
+            min-width: 120px;
+        }
+    }
+
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .header-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.2rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 0;
+    }
+
+    .stats-badge {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 0.9rem 1.5rem;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+    }
+
+    .stats-badge i {
+        font-size: 1.3rem;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: #9ca3af;
+    }
+
+    .empty-state i {
+        font-size: 4rem;
+        color: #e5e7eb;
+        display: block;
+        margin-bottom: 1.5rem;
+    }
+
+    .empty-state h5 {
+        font-family: 'Poppins', sans-serif;
+        color: #6b7280;
+        font-weight: 700;
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .empty-state p {
+        color: #9ca3af;
+        font-size: 0.95rem;
+    }
+
+    .total-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #f0f9ff 0%, #e0f7ff 100%);
+        border-radius: 12px;
+        margin-top: 1.5rem;
+        border-left: 5px solid #06b6d4;
+    }
+
+    .total-label {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        color: #0891b2;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .total-amount {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .table-row-date {
+        font-family: 'Space Mono', monospace;
+        font-weight: 700;
+        background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+        color: #4f46e5;
+        padding: 0.5rem 0.8rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+    }
+
+    .table-row-plate {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 800;
+        color: #667eea;
+        font-size: 1.15rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+
+    .table-row-type {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+        color: white;
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: inline-block;
+    }
+
+    .table-row-amount {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 800;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 1.25rem;
+    }
+
+    .btn-full-width {
+        width: 100%;
+        padding: 1rem !important;
+        font-size: 1rem;
+        margin-top: 1.5rem;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* Premium Button Styling */
+    .btn-register {
+        position: relative;
+        width: 100%;
+        padding: 1.2rem 2rem !important;
+        margin-top: 2.5rem;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: white;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4), 0 0 20px rgba(240, 147, 251, 0.3);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #fa709a 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        animation: buttonSlideIn 0.6s ease-out;
+    }
+
+    .btn-register::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.5s ease;
+        z-index: 1;
+    }
+
+    .btn-register:hover::before {
+        left: 100%;
+    }
+
+    .btn-register i {
+        font-size: 1.3rem;
+        animation: iconPulse 2s ease-in-out infinite;
+        transition: transform 0.3s ease;
+    }
+
+    .btn-register:hover i {
+        transform: scale(1.2) rotate(90deg);
+        animation: none;
+    }
+
+    .btn-register:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 48px rgba(102, 126, 234, 0.5), 0 0 30px rgba(240, 147, 251, 0.4);
+        letter-spacing: 1.5px;
+    }
+
+    .btn-register:active {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Button Span for positioning */
+    .btn-register-text {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    /* Pulsing Dot */
+    .btn-register::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 1.5rem;
+        width: 12px;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        animation: pulse 2s ease-in-out infinite;
+        z-index: 2;
+    }
+
+    /* Animations */
+    @@keyframes buttonSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes iconPulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.15);
+        }
+    }
+
+    @@keyframes pulse {
+        0%, 100% {
+            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+        }
+        50% {
+            box-shadow: 0 0 0 8px rgba(255, 255, 255, 0);
+        }
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .btn-register {
+            padding: 1rem 1.5rem !important;
+            font-size: 1rem;
+        }
+
+        .btn-register::after {
+            right: 1rem;
+        }
+    }
+
+</style>
+
+<!-- WELCOME BANNER -->
+<div class="welcome-banner">
+    <div class="welcome-content">
+        <div class="welcome-icon">👋</div>
+        <div class="welcome-text">
+            <h2>¡Bienvenido de Nuevo!</h2>
+            <p>Sistema integral de gestión de parqueo. Registre vehículos, visualice datos en tiempo real y controle sus ingresos de manera eficiente.</p>
+            <div class="welcome-stats">
+                <div class="welcome-stat">
+                    <div class="welcome-stat-label">
+                        <i class="bi bi-ticket-detailed"></i> Tickets Hoy
+                    </div>
+                    <div class="welcome-stat-value">@ticketList.Count</div>
+                </div>
+                <div class="welcome-stat">
+                    <div class="welcome-stat-label">
+                        <i class="bi bi-cash-coin"></i> Total Ingresos
+                    </div>
+                    <div class="welcome-stat-value">₡@totalIngresos.ToString("N2")</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TICKETS SECTION -->
+
+
+<div class="form-card">
+    <div class="header-section">
+        <h1 class="header-title">
+            <i class="bi bi-list-check" style="font-size: 2rem;"></i>
+            Tickets Registrados
+        </h1>
+        <div class="stats-badge">
+            <i class="bi bi-ticket-detailed"></i>
+            @ticketList.Count Tickets
+        </div>
+    </div>
+
+    @if (ticketList.Count > 0)
+    {
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><i class="bi bi-calendar3"></i> Fecha de Ingreso</th>
+                        <th><i class="bi bi-car-front"></i> Placa</th>
+                        <th><i class="bi bi-speedometer2"></i> Tipo Vehículo</th>
+                        <th><i class="bi bi-currency-dollar"></i> Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var t in ticketList)
+                    {
+                        <tr>
+                            <td>
+                                <span class="table-row-date">
+                                    @t.FechaIngreso.ToString("dd/MM/yyyy HH:mm")
+                                </span>
+                            </td>
+                            <td>
+                                <span class="table-row-plate">
+                                    @t.PlacaVehiculo
+                                </span>
+                            </td>
+                            <td>
+                                <span class="table-row-type">
+                                    @t.DescripcionTipo
+                                </span>
+                            </td>
+                            <td>
+                                <span class="table-row-amount">
+                                    ₡@t.MontoTotal.ToString("N2")
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="total-section">
+            <span class="total-label">
+                <i class="bi bi-calculator"></i> Total de Ingresos
+            </span>
+            <span class="total-amount">
+                ₡@totalIngresos.ToString("N2")
+            </span>
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <i class="bi bi-inbox"></i>
+            <h5>No hay tickets registrados</h5>
+            <p>Comience registrando el primer vehículo para ver los tickets aquí.</p>
+        </div>
+    }
+
+    <a class="btn-register" href="/Tickets/Create">
+        <span class="btn-register-text">
+            <i class="bi bi-plus-circle"></i>
+            <span>Registrar Nuevo Ticket</span>
+        </span>
+    </a>
+</div>
