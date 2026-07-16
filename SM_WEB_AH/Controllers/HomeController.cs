@@ -75,10 +75,36 @@ namespace SM_WEB_AH.Controllers
 
         #endregion
 
+        #region Recuperar Acceso
+
+        [HttpGet]
         public IActionResult RecuperarAcceso()
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult RecuperarAcceso(UsuarioModel model)
+        {
+            using var client = _http.CreateClient();
+
+            var urlApi = _config["Valores:UrlApi"] + "Home/RecuperarAccesoAPI";
+            var response = client.PostAsJsonAsync(urlApi, model).Result;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                ViewBag.Mensaje = response.Content.ReadAsStringAsync().Result;
+                return View();
+            }
+
+            throw new Exception("Ocurrió un error al intentar recuperar su acceso.");
+        }
+
+        #endregion
 
         public IActionResult Principal()
         {
