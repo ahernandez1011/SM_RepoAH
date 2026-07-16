@@ -64,6 +64,7 @@ namespace SM_API_AH.Controllers
             parameters = new DynamicParameters();
             parameters.Add("@Consecutivo", response.Consecutivo);
             parameters.Add("@Contrasenna", temporal);
+            parameters.Add("@IndicadorTemp", true);
 
             var actualizacion = context.Execute("spActualizarContrasenna", parameters);
 
