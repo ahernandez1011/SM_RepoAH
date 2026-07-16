@@ -1,1 +1,68 @@
-﻿﻿ESTA ES LA PANTALLA DE CONFIGURACIÓN
+@model UsuarioModel
+@{
+    var nombre = Context.Session.GetString("Nombre");
+}
+
+@if (ViewBag.Mensaje != null)
+{
+    <div class="alert alert-danger text-center">
+        @ViewBag.Mensaje
+    </div>
+}
+
+<form id="SeguridadForm" asp-action="CambiarContrasenna" asp-controller="Usuario" method="post">
+
+    <div class="row">
+
+        <div class="col-12 col-lg-7">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <label for="Contrasenna" class="form-label">Contraseña Nueva</label>
+                        <div class="input-group">
+                            <input asp-for="Contrasenna" type="password" class="form-control">
+                            <span class="input-group-text">
+                                <i class="bi bi-eye-slash toggle-password" data-target="Contrasenna" style="cursor: pointer;"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ConfirmarContrasenna" class="form-label">Confirmar Contraseña</label>
+                        <div class="input-group">
+                            <input asp-for="ConfirmarContrasenna" type="password" class="form-control">
+                            <span class="input-group-text">
+                                <i class="bi bi-eye-slash toggle-password" data-target="ConfirmarContrasenna" style="cursor: pointer;"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Procesar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-5">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-center align-items-center flex-column">
+                        <div class="avatar avatar-2xl">
+                            <img src="~/images/cyber.png" alt="Logo">
+                        </div>
+
+                        <h3 class="mt-3">@nombre</h3>
+                        <p class="text-small">Junior Software Engineer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+<script src="~/js/configuracion.js" asp-append-version="true"></script>

@@ -9,5 +9,6 @@
         public string Contrasenna { get; set; } = string.Empty;
         public bool Estado { get; set; }
         public bool IndicadorTemp { get; set; }
+        public string ConfirmarContrasenna { get; set; } = string.Empty;
     }
 }

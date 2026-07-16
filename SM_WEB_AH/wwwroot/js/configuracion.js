@@ -14,26 +14,32 @@
         }
     });
 
-    $("#IndexForm").validate({
+    $.validator.addMethod("caracterEspecial", function (value, element) {
+        return this.optional(element) || /[!@#$%^&*(),.?":{}|<>]/.test(value);
+    }, "");
+
+    $("#SeguridadForm").validate({
         rules: {
-            CorreoElectronico: {
-                required: true,
-                email: true
-            },
             Contrasenna: {
                 required: true,
-                minlength: 5
-            }
+                minlength: 5,
+                caracterEspecial: true
+            },
+            ConfirmarContrasenna: {
+                required: true,
+                equalTo: "#Contrasenna"
+            },
         },
         messages: {
-            CorreoElectronico: {
-                required: "Campo obligatorio",
-                email: "Formato no válido"
-            },
             Contrasenna: {
                 required: "Campo obligatorio",
-                minlength: "Mínimo 5 caracteres"
-            }
+                minlength: "Mínimo 5 caracteres",
+                caracterEspecial: "Al menos 1 caracter especial"
+            },
+            ConfirmarContrasenna: {
+                required: "Campo obligatorio",
+                equalTo: "Las contraseñas no coinciden"
+            },
         },
         errorElement: "span",
         errorPlacement: function (error, element) {

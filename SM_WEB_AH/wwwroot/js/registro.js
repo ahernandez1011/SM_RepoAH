@@ -1,5 +1,19 @@
 ﻿$(function () {
 
+    // Funcionalidad para mostrar/ocultar contraseña
+    $(".toggle-password").on("click", function () {
+        var target = $(this).data("target");
+        var input = $("#" + target);
+
+        if (input.attr("type") === "password") {
+            input.attr("type", "text");
+            $(this).removeClass("bi-eye-slash").addClass("bi-eye");
+        } else {
+            input.attr("type", "password");
+            $(this).removeClass("bi-eye").addClass("bi-eye-slash");
+        }
+    });
+
     $.validator.addMethod("caracterEspecial", function (value, element) {
         return this.optional(element) || /[!@#$%^&*(),.?":{}|<>]/.test(value);
     }, "");
@@ -35,7 +49,7 @@
             },
             Contrasenna: {
                 required: "Campo obligatorio.",
-                minlength: "Mínimo 6 caracteres.",
+                minlength: "Mínimo 5 caracteres.",
                 caracterEspecial: "Debe contener al menos 1 caracter especial."
             }
         },

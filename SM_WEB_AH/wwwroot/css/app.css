@@ -144,9 +144,8 @@
         }
 
     .avatar img {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%
+        width: 96px;
+        height: 96px;
     }
 
     .avatar .avatar-status {
@@ -160,26 +159,26 @@
     }
 
     .avatar.avatar-sm .avatar-content, .avatar.avatar-sm img {
-        width: 24px;
-        height: 24px;
+        width: 96px;
+        height: 96px;
         font-size: .8rem
     }
 
     .avatar.avatar-md .avatar-content, .avatar.avatar-md img {
-        width: 32px;
-        height: 32px;
+        width: 96px;
+        height: 96px;
         font-size: .8rem
     }
 
     .avatar.avatar-lg .avatar-content, .avatar.avatar-lg img {
-        width: 48px;
-        height: 48px;
+        width: 96px;
+        height: 96px;
         font-size: 1.2rem
     }
 
     .avatar.avatar-xl .avatar-content, .avatar.avatar-xl img {
-        width: 60px;
-        height: 60px;
+        width: 96px;
+        height: 96px;
         font-size: 1.4rem
     }
 
@@ -550,6 +549,11 @@
         padding-left: 2.5rem
     }
 
+    .form-group[class*=has-icon-].has-icon-left.has-icon-right .form-control {
+        padding-left: 2.5rem;
+        padding-right: 2.5rem
+    }
+
     .form-group[class*=has-icon-].has-icon-left .form-control-icon {
         left: 0
     }
@@ -584,6 +588,21 @@
         transform: translateY(-50%);
         padding: 0 .6rem
     }
+
+    .form-group[class*=has-icon-] .form-control-icon-right {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0;
+        padding: 0 .6rem;
+        z-index: 10
+    }
+
+        .form-group[class*=has-icon-] .form-control-icon-right i {
+            width: 1.2rem;
+            color: #6c757d;
+            font-size: 1.2rem
+        }
 
         .form-group[class*=has-icon-] .form-control-icon i, .form-group[class*=has-icon-] .form-control-icon svg {
             width: 1.2rem;
