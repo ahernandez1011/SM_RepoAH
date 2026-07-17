@@ -40,3 +40,25 @@ body {
         padding: 5rem
     }
 }
+
+/* Fix crítico: permitir escribir en el campo de contraseña 
+//#auth .form-group.has-icon-right .form-control-icon-right {
+    pointer-events: none;
+}
+
+
+#auth .form-group.has-icon-right .form-control-icon-right i {
+    pointer-events: all;
+}*/
+
+/* Separar el check de validación del ícono del ojo 
+#auth .form-group.has-icon-left.has-icon-right .form-control.is-valid {
+    padding-right: 4.5rem !important;
+    background-position: right calc(2.5rem + 0.375rem) center;
+}
+
+#auth .form-group.has-icon-left.has-icon-right .form-control.is-invalid {
+    padding-right: 4.5rem !important;
+    background-position: right calc(2.5rem + 0.375rem) center;
+}
+    */

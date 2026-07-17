@@ -3,66 +3,99 @@
     var nombre = Context.Session.GetString("Nombre");
 }
 
-@if (ViewBag.Mensaje != null)
-{
-    <div class="alert alert-danger text-center">
-        @ViewBag.Mensaje
-    </div>
-}
+<div class="row">
 
-<form id="SeguridadForm" asp-action="CambiarContrasenna" asp-controller="Usuario" method="post">
+    <div class="col-12 col-lg-5 mx-auto">
+        <div class="card bg-transparent m-0">
+            <div class="card-body">
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                    <div class="avatar avatar-2xl">
+                        <img src="~/images/cyber.png" alt="Logo">
+                    </div>
+
+                    <h3 class="mt-3">@nombre</h3>
+                    <p class="text-small">Junior Software Engineer</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 
     <div class="row">
 
-        <div class="col-12 col-lg-7">
-            <div class="card">
-                <div class="card-body">
+     <div class="col-12 col-lg-6">
+        <div class="card">
+            <div class="card-body">
+
+                @if (ViewBag.MensajeSeguridad != null)
+                {
+                    <div class="alert alert-danger text-center">
+                        @ViewBag.MensajeSeguridad
+                    </div>
+                }
+
+                <form id="SeguridadForm" asp-action="CambiarContrasenna" asp-controller="Usuario" method="post">
 
                     <div class="form-group">
                         <label for="Contrasenna" class="form-label">Contraseña Nueva</label>
-                        <div class="input-group">
-                            <input asp-for="Contrasenna" type="password" class="form-control">
-                            <span class="input-group-text">
-                                <i class="bi bi-eye-slash toggle-password" data-target="Contrasenna" style="cursor: pointer;"></i>
-                            </span>
+                         <input asp-for="Contrasenna" type="password" class="form-control">
+                        </div>
+
+                    <div class="form-group">
+                        <label for="ConfirmarContrasenna" class="form-label">Confirmar Contraseña</label>
+                            <input asp-for="ConfirmarContrasenna" type="password" class="form-control"> 
+                        </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Procesar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+    <div class="card">
+        <div class="card-body">
+
+             @if (ViewBag.MensajePerfil != null)
+                {
+                    <div class="alert alert-danger text-center">
+                        @ViewBag.MensajePerfil
+                    </div>
+                }
+
+                <form id="PerfilForm" asp-action="CambiarPerfil" asp-controller="Usuario" method="post">
+
+                    <div class="row">
+                        <div class="col form-group">
+                            <label for="Identificacion" class="form-label">Identificación</label>
+                            <input asp-for="Identificacion" type="text" class="form-control">
+                        </div>
+
+                        <div class="col form-group">
+                            <label for="Nombre" class="form-label">Nombre</label>
+                            <input asp-for="Nombre" type="text" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="ConfirmarContrasenna" class="form-label">Confirmar Contraseña</label>
-                        <div class="input-group">
-                            <input asp-for="ConfirmarContrasenna" type="password" class="form-control">
-                            <span class="input-group-text">
-                                <i class="bi bi-eye-slash toggle-password" data-target="ConfirmarContrasenna" style="cursor: pointer;"></i>
-                            </span>
-                        </div>
+                        <label for="CorreoElectronico" class="form-label">Correo Electrónico</label>
+                        <input asp-for="CorreoElectronico" type="text" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Procesar</button>
                     </div>
 
-                </div>
+                </form>
+
             </div>
         </div>
-
-        <div class="col-12 col-lg-5">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-center align-items-center flex-column">
-                        <div class="avatar avatar-2xl">
-                            <img src="~/images/cyber.png" alt="Logo">
-                        </div>
-
-                        <h3 class="mt-3">@nombre</h3>
-                        <p class="text-small">Junior Software Engineer</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
-</form>
+</div>
 
 <script src="~/js/configuracion.js" asp-append-version="true"></script>
