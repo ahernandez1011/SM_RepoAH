@@ -31,7 +31,7 @@
 
                 @if (ViewBag.MensajeSeguridad != null)
                 {
-                    <div class="alert alert-danger text-center">
+                    <div class="alert alert-@ViewBag.ClaseMensajeSeguridad text-center">
                         @ViewBag.MensajeSeguridad
                     </div>
                 }
@@ -62,7 +62,7 @@
 
              @if (ViewBag.MensajePerfil != null)
                 {
-                    <div class="alert alert-danger text-center">
+                    <div class="alert alert-@ViewBag.ClaseMensajePerfil text-center">
                         @ViewBag.MensajePerfil
                     </div>
                 }

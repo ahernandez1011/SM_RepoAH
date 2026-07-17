@@ -45,6 +45,7 @@ namespace SM_WEB_AH.Controllers
             else if (response.StatusCode == HttpStatusCode.BadRequest)
             {
                 ViewBag.MensajeSeguridad = response.Content.ReadAsStringAsync().Result;
+                ViewBag.ClaseMensajeSeguridad = "danger";
                 return View("Configuracion", model);
             }
 
@@ -64,6 +65,13 @@ namespace SM_WEB_AH.Controllers
             {
                 HttpContext.Session.SetString("Nombre", model.Nombre);
                 ViewBag.MensajePerfil = response.Content.ReadAsStringAsync().Result;
+                ViewBag.ClaseMensajePerfil = "success";
+                return View("Configuracion", model);
+            }
+            else if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                ViewBag.MensajePerfil = response.Content.ReadAsStringAsync().Result;
+                ViewBag.ClaseMensajePerfil = "danger";
                 return View("Configuracion", model);
             }
 
