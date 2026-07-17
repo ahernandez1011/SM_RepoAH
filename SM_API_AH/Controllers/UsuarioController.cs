@@ -63,7 +63,7 @@ namespace SM_API_AH.Controllers
 
             if (actualizacion > 0)
             {
-                return Ok("Sus datos se han actualizado correctamente");
+                return Ok("Sus datos se han actualizado correctamente.");
             }
 
             return BadRequest("Su información no se pudo actualizar correctamente.");

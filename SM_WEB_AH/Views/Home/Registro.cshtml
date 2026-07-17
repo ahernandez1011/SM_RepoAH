@@ -27,6 +27,7 @@
                                 <i class="bi bi-person-badge"></i>
                             </div>
                         </div>
+
                         <div class="form-group position-relative has-icon-left">
                             <input asp-for="Nombre" type="text" class="form-control form-control-xl" placeholder="Nombre">
                             <div class="form-control-icon">
@@ -40,18 +41,17 @@
                                 <i class="bi bi-envelope"></i>
                             </div>
                         </div>
-                        <div class="form-group position-relative has-icon-left has-icon-right">
-                            <input asp-for="Contrasenna" type="password" class="form-control form-control-xl" placeholder="Contraseña">
-                            <div class="form-control-icon">
+
+                         <div class="form-group position-relative has-icon-left">
+                           <input asp-for="Contrasenna" type="password" class="form-control form-control-xl" placeholder="Contraseña">
+                           <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
-                            </div>
-                            <div class="form-control-icon-right">
-                                <i class="bi bi-eye-slash toggle-password" data-target="Contrasenna" style="cursor: pointer;"></i>
                             </div>
                         </div>
 
-                        <button class="btn btn-primary btn-block btn-lg shadow-lg mt-3">Procesar</button>
+                           <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-3">Procesar</button>
                     </form>
+
                     <div class="text-center mt-5 text-lg fs-4">
                         <p class='text-gray-600'>
                            ¿Ya tiene una cuenta? <a asp-action="Index" asp-controller="Home" class="font-bold">

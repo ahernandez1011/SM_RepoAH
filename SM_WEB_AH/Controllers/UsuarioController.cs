@@ -27,7 +27,6 @@ namespace SM_WEB_AH.Controllers
 
             throw new Exception("Ocurrió un error al intentar cambiar su contraseña de acceso.");
         }
-
         [HttpPost]
         public IActionResult CambiarContrasenna(UsuarioModel model)
         {

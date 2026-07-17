@@ -57,7 +57,7 @@ namespace SM_API_AH.Controllers
             var response = context.QueryFirstOrDefault<DatosUsuarioResponseModel>("spValidarCorreo", parameters);
 
             if (response == null)
-                return NotFound("La información no se pudo validar correctamente");
+                return NotFound("La información no se pudo validar correctamente.");
 
             //Generar nueva contraseña temporal
             var temporal = _utiles.GenerarContrasena();
