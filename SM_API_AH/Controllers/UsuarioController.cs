@@ -48,7 +48,7 @@ namespace SM_API_AH.Controllers
 
             return BadRequest("La contraseña no se pudo actualizar correctamente.");
         }
-       
+
         [HttpPut("CambiarPerfilAPI")]
         public IActionResult CambiarPerfilAPI(CambiarPerfilRequestModel model)
         {

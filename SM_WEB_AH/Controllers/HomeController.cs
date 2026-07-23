@@ -5,7 +5,7 @@ using System.Net;
 
 namespace SM_WEB_AH.Controllers
 {
-    public class HomeController (
+    public class HomeController(
         IHttpClientFactory _http,
         IConfiguration _config) : Controller
     {
@@ -67,7 +67,7 @@ namespace SM_WEB_AH.Controllers
             using var client = _http.CreateClient();
             var urlApi = _config["Valores:UrlApi"] + "Home/RegistroAPI";
             var response = client.PostAsJsonAsync(urlApi, model).Result;
-            
+
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 return RedirectToAction("Index", "Home");

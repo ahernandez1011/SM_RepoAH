@@ -15,20 +15,20 @@ namespace SM_API_AH.Controllers
         [HttpPost("RegistroAPI")]
         public IActionResult RegistroAPI(RegistroUsuarioRequestModel model)
         {
-                using var context = new SqlConnection(_config["ConnectionStrings:DefaultConnection"]);
+            using var context = new SqlConnection(_config["ConnectionStrings:DefaultConnection"]);
 
-                var parameters = new DynamicParameters();
-                parameters.Add("@Identificacion", model.Identificacion);
-                parameters.Add("@Nombre", model.Nombre);
-                parameters.Add("@CorreoElectronico", model.CorreoElectronico);
-                parameters.Add("@Contrasenna", model.Contrasenna);
+            var parameters = new DynamicParameters();
+            parameters.Add("@Identificacion", model.Identificacion);
+            parameters.Add("@Nombre", model.Nombre);
+            parameters.Add("@CorreoElectronico", model.CorreoElectronico);
+            parameters.Add("@Contrasenna", model.Contrasenna);
 
-                var response = context.Execute("spRegistrarUsuario", parameters);
+            var response = context.Execute("spRegistrarUsuario", parameters);
 
-                if(response > 0)
-                   return Ok(response);
+            if (response > 0)
+                return Ok(response);
 
-                return BadRequest("La información no se pudo registrar correctamente.");
+            return BadRequest("La información no se pudo registrar correctamente.");
         }
 
         [HttpPost("IniciarSesionAPI")]
@@ -69,7 +69,7 @@ namespace SM_API_AH.Controllers
 
             parameters = new DynamicParameters();
             parameters.Add("@Consecutivo", response.Consecutivo);
-            parameters.Add("@Contrasenna", temporalHash); 
+            parameters.Add("@Contrasenna", temporalHash);
             parameters.Add("@IndicadorTemp", true);
 
             var actualizacion = context.Execute("spActualizarContrasenna", parameters);
