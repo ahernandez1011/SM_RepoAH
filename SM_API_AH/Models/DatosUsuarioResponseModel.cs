@@ -10,5 +10,7 @@
         public bool Estado { get; set; }
         public bool IndicadorTemp { get; set; }
         public string Token { get; set; } = string.Empty;
+        public int ConsecutivoRol { get; set; }
+        public string NombreRol { get; set; } = string.Empty;
     }
 }

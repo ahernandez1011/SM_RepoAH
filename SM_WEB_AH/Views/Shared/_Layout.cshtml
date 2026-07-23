@@ -1,5 +1,6 @@
 ﻿﻿@{
 var nombre = Context.Session.GetString("Nombre");
+var nombreRol = Context.Session.GetString("NombreRol");
 }
 
 <!DOCTYPE html>
@@ -55,9 +56,14 @@ var nombre = Context.Session.GetString("Nombre");
                     </a>
 
                     <div class="ms-auto dropdown">
-                        <a href="#" class="user-dropdown-toggle dropdown-toggle"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            <span>@nombre</span>
+                        <a href="#" class="dropdown-toggle d-flex align-items-center gap-2 text-decoration-none text-dark" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width:36px;height:36px;min-width:36px;">
+                                <i class="bi bi-person-fill text-white"></i>
+                            </div>
+                            <div class="d-none d-md-block">
+                                <span class="fw-semibold d-block lh-1">@nombre</span>
+                                <small class="text-muted">@nombreRol</small>
+                            </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end user-dropdown-menu">
                             <li>

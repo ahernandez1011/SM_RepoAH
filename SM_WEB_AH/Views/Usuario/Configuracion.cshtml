@@ -1,6 +1,7 @@
 @model UsuarioModel
 @{
     var nombre = Context.Session.GetString("Nombre");
+    var nombreRol = Context.Session.GetString("NombreRol");
 }
 
 <div class="row">
@@ -14,7 +15,7 @@
                     </div>
 
                     <h3 class="mt-3">@nombre</h3>
-                    <p class="text-small">Junior Software Engineer</p>
+                    <p class="text-small">@nombreRol</p>
                 </div>
             </div>
         </div>
