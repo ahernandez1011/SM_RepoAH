@@ -60,6 +60,8 @@ namespace SM_WEB_AH.Controllers
         [HttpPost]
         public IActionResult Registro(UsuarioModel model)
         {
+            model.Contrasenna = BCrypt.Net.BCrypt.HashPassword(model.Contrasenna);
+
             using var client = _http.CreateClient();
             var urlApi = _config["Valores:UrlApi"] + "Home/RegistroAPI";
             var response = client.PostAsJsonAsync(urlApi, model).Result;
