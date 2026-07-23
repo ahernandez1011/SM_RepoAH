@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SM_WEB_AH.Filters;
 using SM_WEB_AH.Models;
 using System.Net;
 
@@ -115,6 +116,7 @@ namespace SM_WEB_AH.Controllers
 
         #region Cerrar Sesión
 
+        [SessionAuthorize]
         [HttpGet]
         public IActionResult Salir()
         {
@@ -124,6 +126,7 @@ namespace SM_WEB_AH.Controllers
 
         #endregion
 
+        [SessionAuthorize]
         [HttpGet]
         public IActionResult Principal()
         {

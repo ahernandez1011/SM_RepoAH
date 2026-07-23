@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SM_WEB_AH.Filters;
 using SM_WEB_AH.Models;
 using System.Net;
 
 namespace SM_WEB_AH.Controllers
 {
+    [SessionAuthorize]
     public class UsuarioController(
            IHttpClientFactory _http,
            IConfiguration _config) : Controller
