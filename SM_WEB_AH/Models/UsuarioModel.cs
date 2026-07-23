@@ -10,5 +10,6 @@
         public bool Estado { get; set; }
         public bool IndicadorTemp { get; set; }
         public string ConfirmarContrasenna { get; set; } = string.Empty;
+        public string Token { get; set; } = string.Empty;
     }
 }

@@ -1,11 +1,12 @@
 ﻿using Dapper;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using SM_API_AH.Models;
 
 namespace SM_API_AH.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsuarioController(IConfiguration _config) : ControllerBase
