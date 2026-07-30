@@ -56,7 +56,7 @@ namespace SM_API_AH.Services
                 {
                     new System.Security.Claims.Claim("consecutivo", consecutivo.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(1),
+                Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(
                     new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(key),
                     Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256Signature)

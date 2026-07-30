@@ -31,7 +31,7 @@ namespace SM_WEB_AH.Controllers
                 return RedirectToAction("Salir", "Home");
             }
 
-            throw new Exception("Ocurrió un error al intentar cambiar su contraseña de acceso.");
+            throw new Exception("Error al consultar el usuario");
         }
         [HttpPost]
         public IActionResult CambiarContrasenna(UsuarioModel model)

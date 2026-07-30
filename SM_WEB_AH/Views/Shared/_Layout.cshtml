@@ -15,6 +15,7 @@ var nombreRol = Context.Session.GetString("NombreRol");
     <link rel="stylesheet" href="~/css/perfect-scrollbar.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/bootstrap-icons.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/app.css" asp-append-version="true">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.bootstrap5.css" asp-append-version="true">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js" asp-append-version="true"></script>
 </head>
@@ -37,9 +38,9 @@ var nombreRol = Context.Session.GetString("NombreRol");
                     <ul class="menu">
 
                         <li class="sidebar-item active ">
-                            <a href="application-checkout.html" class='sidebar-link'>
-                                <i class="bi bi-basket-fill"></i>
-                                <span>Checkout Page</span>
+                            <a asp-action="Bandeja" asp-controller="Solicitud" class='sidebar-link'>
+                                <i class="bi bi-mailbox"></i>
+                                <span>Solicitudes</span>
                             </a>
                         </li>  
 
@@ -107,7 +108,8 @@ var nombreRol = Context.Session.GetString("NombreRol");
     <script src="~/js/perfect-scrollbar.min.js" asp-append-version="true"></script>
     <script src="~/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
     <script src="~/js/main.js" asp-append-version="true"></script>
-
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js" asp-append-version="true"></script>
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.bootstrap5.js" asp-append-version="true"></script>
 </body>
 
 </html>

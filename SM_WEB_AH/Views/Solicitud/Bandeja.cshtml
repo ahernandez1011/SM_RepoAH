@@ -1,0 +1,60 @@
+﻿@model List<SolicitudModel>
+
+<div class="row">
+  <div class="col-12 col-lg-12">
+
+    <div class="card">
+      <div class="card-body">
+
+        <div class="page-title mb-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <h3>Mis Solicitudes</h3>
+            <a asp-action="AgregarSolicitud" asp-controller="Solicitud" class="btn btn-primary">
+              <i class="bi bi-plus-lg"></i> Nueva Solicitud
+            </a>
+          </div>
+        </div>
+
+        @if (ViewBag.MensajeSeguridad != null)
+        {
+          <div class="alert alert-@ViewBag.ClaseMensajeSeguridad text-center">
+            @ViewBag.MensajeSeguridad
+          </div>
+        }
+
+        <table class="table" id="tblSolicitudes">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Título</th>
+              <th>Fecha Registro</th>
+              <th>Fecha Finalización</th>
+              <th>Responsable</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @foreach (var item in Model)
+            {
+              <tr>
+                <td>@item.Consecutivo</td>
+                <td>@item.Titulo</td>
+                <td>@item.FechaRegistro</td>
+                <td>@(item.FechaFinalizacion.Year == 1 ? "" : item.FechaFinalizacion)</td>
+                <td>@item.NombreAdmin</td>
+                <td>@item.NombreEstado</td>
+                <td></td>
+              </tr>
+            }            
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="~/js/consultarSolicitudes.js" asp-append-version="true"></script>
