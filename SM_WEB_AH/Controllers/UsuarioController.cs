@@ -15,11 +15,10 @@ namespace SM_WEB_AH.Controllers
         [HttpGet]
         public IActionResult Configuracion()
         {
-            var consecutivo = HttpContext.Session.GetInt32("Consecutivo")!.Value;
             using var client = _http.CreateClient();
 
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + HttpContext.Session.GetString("Token"));
-            var urlApi = _config["Valores:UrlApi"] + "Usuario/ConsultarUsuarioAPI?Consecutivo=" + consecutivo;
+            var urlApi = _config["Valores:UrlApi"] + "Usuario/ConsultarUsuarioAPI";
             var response = client.GetAsync(urlApi).Result;
 
             if (response.StatusCode == HttpStatusCode.OK)
@@ -38,8 +37,6 @@ namespace SM_WEB_AH.Controllers
         public IActionResult CambiarContrasenna(UsuarioModel model)
         {
             model.Contrasenna = BCrypt.Net.BCrypt.HashPassword(model.Contrasenna);
-
-            model.Consecutivo = HttpContext.Session.GetInt32("Consecutivo")!.Value;
 
             using var client = _http.CreateClient();
 
@@ -67,8 +64,6 @@ namespace SM_WEB_AH.Controllers
         [HttpPost]
         public IActionResult CambiarPerfil(UsuarioModel model)
         {
-            model.Consecutivo = HttpContext.Session.GetInt32("Consecutivo")!.Value;
-
             using var client = _http.CreateClient();
 
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + HttpContext.Session.GetString("Token"));

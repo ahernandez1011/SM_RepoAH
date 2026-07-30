@@ -3,21 +3,22 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using SM_API_AH.Models;
+using SM_API_AH.Services;
 
 namespace SM_API_AH.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuarioController(IConfiguration _config) : ControllerBase
+    public class UsuarioController(IConfiguration _config, IUtilesService _utiles) : ControllerBase
     {
         [HttpGet("ConsultarUsuarioAPI")]
-        public IActionResult ConsultarUsuarioAPI(int Consecutivo)
+        public IActionResult ConsultarUsuarioAPI()
         {
             using var context = new SqlConnection(_config["ConnectionStrings:DefaultConnection"]);
 
             var parameters = new DynamicParameters();
-            parameters.Add("@Consecutivo", Consecutivo);
+            parameters.Add("@Consecutivo", _utiles.ObtenerConsecutivoToken());
 
             var response = context.QueryFirstOrDefault<DatosUsuarioResponseModel>("spConsultarUsuario", parameters);
 
@@ -35,7 +36,7 @@ namespace SM_API_AH.Controllers
             using var context = new SqlConnection(_config["ConnectionStrings:DefaultConnection"]);
 
             var parameters = new DynamicParameters();
-            parameters.Add("@Consecutivo", model.Consecutivo);
+            parameters.Add("@Consecutivo", _utiles.ObtenerConsecutivoToken());
             parameters.Add("@Contrasenna", model.Contrasenna);
             parameters.Add("@IndicadorTemp", false);
 
@@ -55,7 +56,7 @@ namespace SM_API_AH.Controllers
             using var context = new SqlConnection(_config["ConnectionStrings:DefaultConnection"]);
 
             var parameters = new DynamicParameters();
-            parameters.Add("@Consecutivo", model.Consecutivo);
+            parameters.Add("@Consecutivo", _utiles.ObtenerConsecutivoToken());
             parameters.Add("@Identificacion", model.Identificacion);
             parameters.Add("@Nombre", model.Nombre);
             parameters.Add("@CorreoElectronico", model.CorreoElectronico);
