@@ -91,6 +91,12 @@ namespace SM_WEB_AH.Controllers
             return Json(response.Content.ReadAsStringAsync().Result);
         }
 
+        [HttpGet]
+        public IActionResult VerEstadoSolicitud()
+        {
+            return View();
+        }
+
         private static void GuardarPDF(IFormFile Imagen, int ConsecutivoSolicitud)
         {
             var carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "pdfs");

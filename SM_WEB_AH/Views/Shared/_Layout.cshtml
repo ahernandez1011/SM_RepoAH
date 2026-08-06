@@ -1,6 +1,7 @@
 ﻿﻿@{
 var nombre = Context.Session.GetString("Nombre");
 var nombreRol = Context.Session.GetString("NombreRol");
+var consecutivoRol = Context.Session.GetInt32("ConsecutivoRol");
 }
 
 <!DOCTYPE html>
@@ -37,12 +38,15 @@ var nombreRol = Context.Session.GetString("NombreRol");
                 <div class="sidebar-menu">
                     <ul class="menu">
 
-                        <li class="sidebar-item active ">
-                            <a asp-action="Bandeja" asp-controller="Solicitud" class='sidebar-link'>
-                                <i class="bi bi-mailbox"></i>
-                                <span>Solicitudes</span>
-                            </a>
-                        </li>  
+                        @if (consecutivoRol == 1)
+                        {
+                            <li class="sidebar-item active ">
+                                <a asp-action="Bandeja" asp-controller="Solicitud" class='sidebar-link'>
+                                    <i class="bi bi-mailbox"></i>
+                                    <span>Solicitudes</span>
+                                </a>
+                            </li>
+                        }
 
                     </ul>
                 </div>
