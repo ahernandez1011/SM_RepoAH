@@ -23,11 +23,11 @@ namespace SM_API_AH.Controllers
             parameters.Add("@Descripcion", model.Descripcion);
             parameters.Add("@ConsecutivoUsuario", _utiles.ObtenerConsecutivoToken());
 
-            var response = context.Execute("spRegistrarSolicitud", parameters);
+            var consecutivoSolicitud = context.QuerySingle<int>("spRegistrarSolicitud", parameters);
 
-            if (response > 0)
+            if (consecutivoSolicitud > 0)
             {
-                return Ok("La solicitud se ha registrado correctamente");
+                return Ok(consecutivoSolicitud);
             }
 
             return BadRequest("No se ha podido registrar la solicitud");
