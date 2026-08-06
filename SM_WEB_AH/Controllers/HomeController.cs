@@ -133,7 +133,27 @@ namespace SM_WEB_AH.Controllers
         [HttpGet]
         public IActionResult Principal()
         {
-            return View();
+            using var client = _http.CreateClient();
+
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + HttpContext.Session.GetString("Token"));
+            var urlApi = _config["Valores:UrlApi"] + "Solicitud/ConsultarSolicitudesAdminAPI";
+            var response = client.GetAsync(urlApi).Result;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var datos = response.Content.ReadFromJsonAsync<List<SolicitudModel>>().Result;
+                return View(datos);
+            }
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return View(new List<SolicitudModel>());
+            }
+            else if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                return RedirectToAction("Salir", "Home");
+            }
+
+            throw new Exception("Error al consultar las solicitudes.");
         }
     }
 }

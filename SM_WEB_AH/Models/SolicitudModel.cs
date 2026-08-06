@@ -8,6 +8,7 @@
         public DateTime FechaRegistro { get; set; }
         public DateTime FechaFinalizacion { get; set; }
         public string NombreAdmin { get; set; } = string.Empty;
+        public string NombreUsuario { get; set; } = string.Empty;
         public string NombreEstado { get; set; } = string.Empty;
     }
 }

@@ -1,9 +1,39 @@
-﻿<div class="row">
+﻿@model List<SolicitudModel>
+
+<div class="row g-3">
+  @if (!Model.Any())
+  {
     <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title">Coming Soon!</h5>
+            <p class="text-muted">No tienes solicitudes asignadas.</p>
+        </div>
+    }
+
+    @foreach (var s in Model)
+    {
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span class="fw-semibold">#@s.Consecutivo</span>
+                    <span class="badge bg-primary">@s.NombreEstado</span>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title">@s.Titulo</h6>
+                    <ul class="list-unstyled small text-muted mb-0">
+                        <li><i class="bi bi-person me-1"></i>@s.NombreUsuario</li>
+                        <li><i class="bi bi-calendar me-1"></i>Registro: @s.FechaRegistro.ToString("dd/MM/yyyy")</li>
+                        @if (s.FechaFinalizacion.Year > 1)
+                        {
+                            <li><i class="bi bi-calendar-check me-1"></i>Finalización: @s.FechaFinalizacion.ToString("dd/MM/yyyy")</li>
+                        }
+                    </ul>
+                </div>
+
+                <div class="card-footer">
+                    <a href="~/pdfs/@(s.Consecutivo).pdf" target="_blank" class="btn btn-sm btn-outline-danger w-100">
+                        <i class="bi bi-file-earmark-pdf me-1"></i>Descargar PDF
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
+    }
 </div>

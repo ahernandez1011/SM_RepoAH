@@ -51,6 +51,23 @@ namespace SM_API_AH.Controllers
             return NotFound("No se encontraron solicitudes");
         }
 
+        [HttpGet("ConsultarSolicitudesAdminAPI")]
+        public IActionResult ConsultarSolicitudesAdminAPI()
+        {
+            using var context = new SqlConnection(_config["ConnectionStrings:DefaultConnection"]);
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@ConsecutivoAdmin", _utiles.ObtenerConsecutivoToken());
+
+            var response = context.Query<SolicitudResponseModel>("spConsultarSolicitudesAdmin", parameters);
+
+            if (response.Any())
+            {
+                return Ok(response);
+            }
+
+            return NotFound("No se encontraron solicitudes");
+        }
 
         [HttpGet("ConsultarSolicitudAPI")]
         public IActionResult ConsultarSolicitudAPI(int consecutivoSolicitud)
