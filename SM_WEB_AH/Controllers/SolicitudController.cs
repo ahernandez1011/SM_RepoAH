@@ -74,5 +74,17 @@ namespace SM_WEB_AH.Controllers
         }
 
         #endregion
+
+        [HttpPost]
+        public IActionResult CancelarSolicitud(int consecutivoSolicitud)
+        {
+            using var client = _http.CreateClient();
+
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + HttpContext.Session.GetString("Token"));
+            var urlApi = _config["Valores:UrlApi"] + "Solicitud/CancelarSolicitudAPI?consecutivoSolicitud=" + consecutivoSolicitud;
+            var response = client.DeleteAsync(urlApi).Result;
+
+            return Json(response.Content.ReadAsStringAsync().Result);
+        }
     }
 }

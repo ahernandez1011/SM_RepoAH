@@ -45,16 +45,23 @@
                 <td>@(item.FechaFinalizacion.Year == 1 ? "" : item.FechaFinalizacion)</td>
                 <td>@item.NombreAdmin</td>
                 <td>@item.NombreEstado</td>
-                <td></td>
+               <td>
+
+                  <a class="@(item.NombreEstado == "Abierto" ? "btn-cancelar" : "")" 
+                    style="cursor:@(item.NombreEstado == "Abierto" ? "pointer" : "not-allowed")"
+                    data-consecutivo="@item.Consecutivo" 
+                    data-titulo="@item.Titulo">
+                    <i class="bi bi-trash fs-4"></i>
+                  </a>
+
+                </td>
               </tr>
             }            
           </tbody>
         </table>
-
       </div>
     </div>
   </div>
-
 </div>
 
 <script src="~/js/consultarSolicitudes.js" asp-append-version="true"></script>
