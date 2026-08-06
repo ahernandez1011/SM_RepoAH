@@ -39,5 +39,40 @@ namespace SM_WEB_AH.Controllers
             throw new Exception("Error al consultar las solicitudes.");
         }
 
+        #region Registrar Solicitudes
+
+        [HttpGet]
+        public IActionResult AgregarSolicitud()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AgregarSolicitud(SolicitudModel model, IFormFile Imagen)
+        {
+            using var client = _http.CreateClient();
+
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + HttpContext.Session.GetString("Token"));
+            var urlApi = _config["Valores:UrlApi"] + "Solicitud/RegistrarSolicitudAPI";
+            var response = client.PostAsJsonAsync(urlApi, model).Result;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                return RedirectToAction("Bandeja", "Solicitud");
+            }
+            else if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                ViewBag.Mensaje = response.Content.ReadAsStringAsync().Result;
+                return View();
+            }
+            else if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                return RedirectToAction("Salir", "Home");
+            }
+
+            throw new Exception("Ocurrió un error al intentar registrar la solicitud.");
+        }
+
+        #endregion
     }
 }
