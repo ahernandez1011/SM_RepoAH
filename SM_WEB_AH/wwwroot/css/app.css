@@ -1672,3 +1672,65 @@ a {
     width: 100%;
     height: 240px;
 }
+
+/* ── Chat ─────────────────────────────────────────────────────────── */
+
+.solicitud-item {
+    cursor: pointer;
+    transition: background-color .15s;
+}
+
+    .solicitud-item:hover,
+    .solicitud-item.active {
+        background-color: #e8f0fe;
+    }
+
+.chat-burbuja {
+    max-width: 70%;
+    padding: .5rem .75rem;
+    border-radius: 1rem;
+    font-size: .9rem;
+    word-break: break-word;
+}
+
+.burbuja-propia {
+    background-color: #0d6efd;
+    color: #fff;
+    border-bottom-right-radius: .25rem;
+}
+
+.burbuja-ajena {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-bottom-left-radius: .25rem;
+}
+
+.chat-nombre {
+    font-size: .75rem;
+    font-weight: 600;
+    margin-bottom: .2rem;
+    opacity: .75;
+}
+
+.chat-hora {
+    font-size: .7rem;
+    text-align: right;
+    margin-top: .2rem;
+    opacity: .65;
+}
+
+.chat-nuevo {
+    animation: fadeSlide .2s ease-out;
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
