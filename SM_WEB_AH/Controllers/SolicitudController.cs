@@ -8,7 +8,8 @@ namespace SM_WEB_AH.Controllers
     [SessionAuthorize]
     public class SolicitudController(
         IHttpClientFactory _http,
-        IConfiguration _config) : Controller
+        IConfiguration _config,
+        IWebHostEnvironment _env) : Controller
     {
 
         [HttpGet]
@@ -60,7 +61,8 @@ namespace SM_WEB_AH.Controllers
             {
                 var consecutivoSolicitud = response.Content.ReadFromJsonAsync<int>().Result;
 
-                GuardarPDF(Imagen, consecutivoSolicitud);
+                var carpeta = Path.GetFullPath(Path.Combine(_env.ContentRootPath, "..", "Storage", "pdfs"));
+                GuardarPDF(Imagen, consecutivoSolicitud, carpeta);
 
                 return RedirectToAction("Bandeja", "Solicitud");
             }
@@ -97,9 +99,8 @@ namespace SM_WEB_AH.Controllers
             return View();
         }
 
-        private static void GuardarPDF(IFormFile Imagen, int ConsecutivoSolicitud)
+        private static void GuardarPDF(IFormFile Imagen, int ConsecutivoSolicitud, string carpeta)
         {
-            var carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "pdfs");
             Directory.CreateDirectory(carpeta);
 
             var ruta = Path.Combine(carpeta, $"{ConsecutivoSolicitud}.pdf");
