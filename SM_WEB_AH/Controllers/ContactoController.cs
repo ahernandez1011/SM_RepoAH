@@ -11,6 +11,7 @@ namespace SM_WEB_AH.Controllers
             IHttpClientFactory _http,
             IConfiguration _config) : Controller
     {
+        [HttpGet]
         public IActionResult Chat()
         {
             using var client = _http.CreateClient();
@@ -34,6 +35,29 @@ namespace SM_WEB_AH.Controllers
             ViewBag.UrlHub = _config["Valores:UrlHub"];
             ViewBag.ConsecutivoUsuario = HttpContext.Session.GetInt32("Consecutivo");
             return View(solicitudes);
+        }
+
+        [HttpGet]
+        public IActionResult ConsultarMensajes(int consecutivoSolicitud)
+        {
+            using var client = _http.CreateClient();
+
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + HttpContext.Session.GetString("Token"));
+            var urlApi = _config["Valores:UrlApi"] + "Contacto/ConsultarMensajesAPI?consecutivoSolicitud=" + consecutivoSolicitud;
+            var response = client.GetAsync(urlApi).Result;
+
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                return Unauthorized();
+            }
+
+            if (response.StatusCode == HttpStatusCode.Forbidden)
+            {
+                return Forbid();
+            }
+
+            var json = response.Content.ReadAsStringAsync().Result;
+            return Content(json, "application/json");
         }
     }
 }
