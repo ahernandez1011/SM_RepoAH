@@ -44,7 +44,10 @@ namespace SM_API_AH.Controllers
 
             if (response != null && BCrypt.Net.BCrypt.Verify(model.Contrasenna, response.Contrasenna))
             {
-                response.Token = _utiles.GenerarToken(response.Consecutivo);
+                response.Token = _utiles.GenerarToken(
+                    response.Consecutivo,
+                    response.ConsecutivoRol,
+                    response.Nombre);
                 return Ok(response);
             }
             return NotFound("La información no se pudo validar correctamente.");
