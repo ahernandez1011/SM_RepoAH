@@ -2,6 +2,7 @@
 var nombre = Context.Session.GetString("Nombre");
 var nombreRol = Context.Session.GetString("NombreRol");
 var consecutivoRol = Context.Session.GetInt32("ConsecutivoRol");
+var layoutToken = Context.Session.GetString("Token");
 }
 
 <!DOCTYPE html>
@@ -52,6 +53,7 @@ var consecutivoRol = Context.Session.GetInt32("ConsecutivoRol");
                             <a asp-action="Chat" asp-controller="Contacto" class='sidebar-link'>
                                 <i class="bi bi-chat"></i>
                                 <span>Contacto</span>
+                                <span id="badgeContacto" class="badge bg-danger ms-auto" style="display:none;"></span>
                             </a>
                         </li>
 
@@ -122,6 +124,15 @@ var consecutivoRol = Context.Session.GetInt32("ConsecutivoRol");
     <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js" asp-append-version="true"></script>
     <script src="https://cdn.datatables.net/2.3.4/js/dataTables.bootstrap5.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @inject IConfiguration _layoutConfig
+    @if (!string.IsNullOrEmpty(layoutToken))
+    {
+        <meta id="notificacionesMeta"
+              data-token="@layoutToken"
+              data-url-hub="@_layoutConfig["Valores:UrlHub"]" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+        <script src="~/js/layout-notifications.js" asp-append-version="true"></script>
+    }
 </body>
 
 </html>

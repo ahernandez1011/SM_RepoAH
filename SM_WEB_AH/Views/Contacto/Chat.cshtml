@@ -52,12 +52,16 @@
 
         <!-- Caja de envío -->
         <div class="p-3 border-top" id="cajaEnvio">
-            <div class="input-group">
-                <input type="text" id="inputMensaje" class="form-control" disabled
-                       placeholder="Selecciona una conversación…" autocomplete="off" maxlength="2000">
-                <button class="btn btn-primary" id="btnEnviar" disabled>
-                    <i class="bi bi-arrow-up"></i>
-                </button>
+            <div class="position-relative">
+                <emoji-picker id="emojiPicker" class="position-absolute bottom-100 end-0 mb-1 shadow d-none"></emoji-picker>
+                <div class="input-group">
+                    <button class="btn btn-outline-secondary" id="btnEmoji" type="button" disabled>😊</button>
+                    <input type="text" id="inputMensaje" class="form-control" disabled
+                           placeholder="Selecciona una conversación…" autocomplete="off" maxlength="2000">
+                    <button class="btn btn-primary" id="btnEnviar" disabled>
+                        <i class="bi bi-arrow-up"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -65,6 +69,7 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@1/index.js"></script>
 <script>
     const jwtToken = '@ViewBag.Token';
     const consecutivoActual = @ViewBag.ConsecutivoUsuario;

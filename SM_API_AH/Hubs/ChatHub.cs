@@ -10,6 +10,13 @@ namespace SM_API_AH.Hubs
     [Authorize]
     public class ChatHub(IConfiguration _config, IUtilesService _utiles) : Hub
     {
+        public override async Task OnConnectedAsync()
+        {
+            var consecutivo = _utiles.ObtenerConsecutivoToken();
+            await Groups.AddToGroupAsync(Context.ConnectionId, $"usuario-{consecutivo}");
+            await base.OnConnectedAsync();
+        }
+
         public async Task UnirseASala(int consecutivoSolicitud)
         {
             if (!TieneAcceso(consecutivoSolicitud))
@@ -42,6 +49,16 @@ namespace SM_API_AH.Hubs
             };
 
             await Clients.Group($"solicitud-{consecutivoSolicitud}").SendAsync("RecibirMensaje", modelo);
+
+            // Notify the other participant so they see the badge even when not on the chat page
+            var notifParams = new DynamicParameters();
+            notifParams.Add("@ConsecutivoSolicitud", consecutivoSolicitud);
+            notifParams.Add("@ConsecutivoUsuario", _utiles.ObtenerConsecutivoToken());
+            var otroUsuario = context.QuerySingleOrDefault<int?>("spObtenerInterlocutorSolicitud", notifParams,
+                commandType: System.Data.CommandType.StoredProcedure);
+
+            if (otroUsuario.HasValue)
+                await Clients.Group($"usuario-{otroUsuario.Value}").SendAsync("NuevoMensaje");
         }
 
         private bool TieneAcceso(int consecutivoSolicitud)
