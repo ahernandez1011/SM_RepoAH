@@ -107,5 +107,22 @@ namespace SM_API_AH.Controllers
             return BadRequest("No se ha podido registrar la solicitud");
         }
 
+        [HttpPut("AtenderSolicitudAPI")]
+        public IActionResult AtenderSolicitudAPI(AtenderSolicitudRequestModel model)
+        {
+            using SqlConnection context = new(_config["ConnectionStrings:DefaultConnection"]);
+
+            DynamicParameters parameters = new();
+            parameters.Add("@ConsecutivoSolicitud", model.ConsecutivoSolicitud);
+            parameters.Add("@ConsecutivoAdmin", _utiles.ObtenerConsecutivoToken());
+            parameters.Add("@Solucion", model.Solucion);
+            int rows = context.Execute("spAtenderSolicitud", parameters,
+                commandType: System.Data.CommandType.StoredProcedure);
+
+            if (rows > 0)
+                return Ok("La solicitud se ha marcado como atendida");
+
+            return BadRequest("No se ha podido atender la solicitud");
+        }
     }
 }
