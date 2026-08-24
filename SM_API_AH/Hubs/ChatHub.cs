@@ -8,7 +8,7 @@ using SM_API_AH.Services;
 namespace SM_API_AH.Hubs
 {
     [Authorize]
-    public class ChatHub(IConfiguration _config, IUtilesService _utiles) : Hub
+    public class ChatHub(IConfiguration _config, IUtilesService _utiles, IModerationService _moderation) : Hub
     {
         public override async Task OnConnectedAsync()
         {
@@ -29,6 +29,16 @@ namespace SM_API_AH.Hubs
         {
             if (!TieneAcceso(consecutivoSolicitud))
                 throw new HubException("Acceso denegado a esta sala.");
+
+            if (await _moderation.EsMensajeInapropiadoAsync(mensaje) is bool resultado)
+            {
+                if (resultado)
+                    throw new HubException("El mensaje fue bloqueado por contener contenido inapropiado.");
+            }
+            else
+            {
+                throw new HubException("El servicio de mensajería está temporalmente fuera de servicio. Intente nuevamente más tarde.");
+            }
 
             using var context = new SqlConnection(_config["ConnectionStrings:DefaultConnection"]);
 

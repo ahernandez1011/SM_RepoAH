@@ -128,7 +128,16 @@ async function enviarMensaje() {
         return;
 
     input.value = '';
-    await connection.invoke('EnviarMensaje', salaActual, texto);
+
+    try {
+        await connection.invoke('EnviarMensaje', salaActual, texto);
+    } catch (e) {
+        input.value = texto;
+        // SignalR wraps the HubException message — extract only the custom part
+        const match = e.message?.match(/HubException:\s*(.+)/);
+        const texto_error = match ? match[1] : 'No se pudo enviar el mensaje.';
+        Swal.fire({ icon: 'warning', title: 'Mensaje bloqueado', text: texto_error, confirmButtonText: 'Entendido' });
+    }
 }
 
 // ─── Renderizado de mensajes ──────────────────────────────────────────────────
