@@ -133,14 +133,17 @@ namespace SM_WEB_AH.Controllers
         [HttpGet]
         public IActionResult Principal()
         {
-            if (HttpContext.Session.GetInt32("ConsecutivoRol") == 1)
-            {
-                return RedirectToAction("VerEstadoSolicitud", "Solicitud");
-            }
             using var client = _http.CreateClient();
 
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + HttpContext.Session.GetString("Token"));
-            var urlApi = _config["Valores:UrlApi"] + "Solicitud/ConsultarSolicitudesAdminAPI";
+            
+            var urlApi = string.Empty;
+
+            if (HttpContext.Session.GetInt32("ConsecutivoRol") == 1)
+                urlApi = _config["Valores:UrlApi"] + "Solicitud/ConsultarSolicitudesUsuarioAPI";
+            else
+                urlApi = _config["Valores:UrlApi"] + "Solicitud/ConsultarSolicitudesAdminAPI";
+
             var response = client.GetAsync(urlApi).Result;
 
             if (response.StatusCode == HttpStatusCode.OK)

@@ -1,39 +1,103 @@
 ﻿@model List<SolicitudModel>
 
-<div class="row g-3">
-  @if (!Model.Any())
-  {
-    <div class="col-12">
-            <p class="text-muted">No tienes solicitudes asignadas.</p>
-        </div>
-    }
+@{
+    var consecutivoRol = Context.Session.GetInt32("ConsecutivoRol");
+    var pendientes = Model.Where(s => s.NombreEstado == "Abierto").OrderBy(s => s.FechaRegistro).ToList();
+    var historial = Model.Where(s => s.NombreEstado != "Abierto").OrderByDescending(s => s.FechaFinalizacion).ToList();
+}
 
-    @foreach (var s in Model)
-    {
-        <div class="col-12 col-md-6 col-xl-4">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <span class="fw-semibold">#@s.Consecutivo</span>
-                    <span class="badge bg-primary">@s.NombreEstado</span>
-                </div>
-                <div class="card-body">
-                    <h6 class="card-title">@s.Titulo</h6>
-                    <ul class="list-unstyled small text-muted mb-0">
-                        <li><i class="bi bi-person me-1"></i>@s.NombreUsuario</li>
-                        <li><i class="bi bi-calendar me-1"></i>Registro: @s.FechaRegistro.ToString("dd/MM/yyyy")</li>
-                        @if (s.FechaFinalizacion.Year > 1)
+<!-- ── Pendientes ──────────────────────────────────────────────────────────── -->
+<div class="d-flex align-items-center gap-2 mb-3">
+    <h5 class="mb-0">Pendientes</h5>
+    <span class="badge bg-warning text-dark">@pendientes.Count</span>
+</div>
+
+@if (!pendientes.Any())
+{
+    <p class="text-muted mb-4">No hay solicitudes pendientes.</p>
+}
+else
+{
+    <div class="row g-3 mb-5">
+        @foreach (var s in pendientes)
+        {
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="card h-100 border-start border-warning border-3 shadow-sm">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span class="fw-semibold">#@s.Consecutivo</span>
+                        <span class="badge bg-warning text-dark">@s.NombreEstado</span>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">@s.Titulo</h6>
+                        <ul class="list-unstyled small text-muted mb-0">
+                            <li><i class="bi bi-person me-1"></i>@(consecutivoRol == 1 ? s.NombreAdmin : @s.NombreUsuario)</li>
+                            <li><i class="bi bi-calendar me-1"></i>Registro: @s.FechaRegistro.ToString("dd/MM/yyyy")</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer @(consecutivoRol == 2 ? "d-flex gap-2" : "")">
+                        <a asp-action="Chat" asp-controller="Contacto" class="btn btn-sm btn-outline-primary @(consecutivoRol == 2 ? "flex-grow-1" : "w-100")">
+                            <i class="bi bi-chat me-1"></i>Chat
+                        </a>
+                        @if (consecutivoRol == 2)
                         {
-                            <li><i class="bi bi-calendar-check me-1"></i>Finalización: @s.FechaFinalizacion.ToString("dd/MM/yyyy")</li>
+                            <button class="btn btn-sm btn-success flex-grow-1 btn-atender"
+                                    data-consecutivo="@s.Consecutivo"
+                                    data-titulo="@s.Titulo">
+                                <i class="bi bi-check2-circle me-1"></i>Resolver
+                            </button>
                         }
-                    </ul>
-                </div>
-
-                <div class="card-footer">
-                    <a href="~/pdfs/@(s.Consecutivo).pdf" target="_blank" class="btn btn-sm btn-outline-danger w-100">
-                        <i class="bi bi-file-earmark-pdf me-1"></i>Descargar PDF
-                    </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
+}
+
+<!-- ── Historial ──────────────────────────────────────────────────────────── -->
+<div class="d-flex align-items-center gap-2 mb-3">
+    <h5 class="mb-0 text-muted">Historial</h5>
+    <span class="badge bg-secondary">@historial.Count</span>
 </div>
+
+@if (!historial.Any())
+{
+    <p class="text-muted">No hay solicitudes en el historial.</p>
+}
+else
+{
+    <div class="row g-3">
+        @foreach (var s in historial)
+        {
+            var esAtendido = s.NombreEstado == "Atendido";
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="card h-100 border-start @(esAtendido ? "border-success" : "border-danger") border-3 opacity-75">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span class="fw-semibold text-muted">#@s.Consecutivo</span>
+                        <span class="badge @(esAtendido ? "bg-success" : "bg-danger")">@s.NombreEstado</span>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title text-muted">@s.Titulo</h6>
+                        <ul class="list-unstyled small text-muted mb-0">
+                            <li><i class="bi bi-person me-1"></i>@(consecutivoRol == 1 ? s.NombreAdmin : @s.NombreUsuario)</li>
+                            <li><i class="bi bi-calendar me-1"></i>Registro: @s.FechaRegistro.ToString("dd/MM/yyyy")</li>
+                            @if (s.FechaFinalizacion.Year > 1)
+                            {
+                                <li><i class="bi bi-calendar-check me-1"></i>Finalización: @s.FechaFinalizacion.ToString("dd/MM/yyyy")</li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="~/pdfs/@(s.Consecutivo).pdf" target="_blank" class="btn btn-sm btn-outline-danger w-100">
+                            <i class="bi bi-file-earmark-pdf me-1"></i>Descargar PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@if (consecutivoRol == 2)
+{
+    <script src="~/js/principal-soporte.js" asp-append-version="true"></script>
+}
